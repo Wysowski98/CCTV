@@ -16,7 +16,7 @@ namespace CctvDB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Cctv>().HasOne(x => x.Client).WithMany(y => y.FavouriteCctvs).HasForeignKey(x => x.ClientId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Cctv>().HasOne(x => x.Client).WithMany(y => y.FavouriteCctvs).OnDelete(DeleteBehavior.Restrict);
             //modelBuilder.Entity<Client>().HasMany(x => x.FavouriteCctvs);
         }
     }

@@ -7,23 +7,21 @@ using System.Linq;
 using CctvDB;
 using Domain;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Services.Service
 {
     public class ClientService : IClientService
     {
         private readonly CctvDbContext _context;
+        private readonly UserManager<Client> _userManager;
+        private readonly SignInManager<Client> _signInManager;
 
-        public ClientService(CctvDbContext context)
+        public ClientService(CctvDbContext context, UserManager<Client> userManager, SignInManager<Client> signInManager)
         {
             _context = context;
         }
 
-        public async Task AddClient(ClientDTO newClient)
-        {
-            await _context.Clients.AddAsync(Mapper.Map<ClientDTO, Client>(newClient));
-            await _context.SaveChangesAsync();
-        }
 
         public async Task<List<ClientDTO>> GetClients()
         {

@@ -21,6 +21,7 @@ using Hangfire.SqlServer;
 using System.Diagnostics;
 using Hangfire.Common;
 using Microsoft.AspNetCore.Identity;
+using Domain;
 
 namespace CCTVSystem
 {
@@ -53,7 +54,14 @@ namespace CCTVSystem
             services.AddHangfireServer();
 
             services.AddDbContext<CctvDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CCTVSystem")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<Client, IdentityRole>(config =>
+            {
+                // password configuration
+                config.Password.RequiredLength = 8;
+                config.Password.RequireDigit = true;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = true;
+            })
                 .AddEntityFrameworkStores<CctvDbContext>();
 
             MapperSetup.Configurate();
