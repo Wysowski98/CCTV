@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Service;
 using Services.DTO;
+using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace CCTVSystem.Controllers
 {
@@ -14,10 +16,14 @@ namespace CCTVSystem.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientService _service;
+        private readonly UserManager<Client> _userManager;
+        private readonly SignInManager<Client> _signInManager;
 
-        public ClientController(IClientService service)
+        public ClientController(IClientService service, UserManager<Client> userManager, SignInManager<Client> signInManager)
         {
             _service = service;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -34,15 +40,46 @@ namespace CCTVSystem.Controllers
             }
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> AddClients([FromBody] ClientDTO client)
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(string username, string password)
         {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid data.");
+            var user = await _userManager.FindByNameAsync(username);
 
-            await _service.AddClient(client);
+            if (user != null)
+            {
+                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
-            return Ok();
+                if (signInResult.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest("Failed to log in.");
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(string username, string password)
+        {
+            var user = new Client
+            {
+                UserName = username
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+            {
+                // sign in
+                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
+
+                if (signInResult.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest("Failed to register.");
         }
     }
 }

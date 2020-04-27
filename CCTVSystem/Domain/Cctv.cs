@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Domain
@@ -11,7 +12,8 @@ namespace Domain
         public string IpAddress { get; set; }
         public string Description { get; set; }
 
+        [ForeignKey("UserId")]
         public Client Client { get; set; }
-        public int ClientId { get; set; }
+
     }
 }

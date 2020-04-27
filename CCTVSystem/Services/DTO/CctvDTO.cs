@@ -12,6 +12,5 @@ namespace Services.DTO
         public string Description { get; set; }
 
         public ClientDTO Client { get; set; }
-        public int ClientId { get; set; }
     }
 }

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain
 {
-    public class Client
+    public class Client: IdentityUser
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime CreationDate { get; set; }
-        public string MailAddress { get; set; }
         public List<Cctv> FavouriteCctvs { get; set; }
+
+        public string LastViewedStream { get; set; }
     }
 }

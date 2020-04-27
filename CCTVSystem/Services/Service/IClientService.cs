@@ -9,6 +9,5 @@ namespace Services.Service
     public interface IClientService
     {
         Task<List<ClientDTO>> GetClients();
-        Task AddClient(ClientDTO newClient);
     }
 }
