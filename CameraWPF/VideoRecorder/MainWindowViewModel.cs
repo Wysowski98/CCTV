@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 using System.Windows.Media.Imaging;
@@ -16,7 +17,6 @@ using AForge.Video.DirectShow;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
-
 
 namespace VideoRecorder
 {
@@ -146,15 +146,19 @@ namespace VideoRecorder
     {
         #region Private fields
 
+        private const int _maxCameras = 25;
+
         private List<Camera> _cameras = new List<Camera>();
+        private WrapPanel _panelImages;
+        private int _viewType = 9;
 
         #endregion
 
         #region Constructor
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(WrapPanel panelImages)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < _maxCameras; i++)
             {
                 Cameras.Add(new Camera());
             }
@@ -162,7 +166,9 @@ namespace VideoRecorder
             EnterIPCommand = MyCommand;
             StartRecordingCommand = new RelayCommand(startRecording);
             StopRecordingCommand = new RelayCommand(stopRecording);
-            StopCameraCommand = new RelayCommand(stopCamera);  
+            StopCameraCommand = new RelayCommand(stopCamera);
+            _panelImages = panelImages;
+            prepButtons(_viewType);
         }
 
         #endregion
@@ -190,7 +196,7 @@ namespace VideoRecorder
 
         private void stopCamera()
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < _viewType; i++)
             {
                 Cameras[i].StopCamera();
             }
@@ -198,7 +204,7 @@ namespace VideoRecorder
 
         private void startRecording()
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < _viewType; i++)
             {
                 Cameras[i].StartRecording();
             }
@@ -206,7 +212,7 @@ namespace VideoRecorder
 
         private void stopRecording()
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < _viewType; i++)
             {
                 Cameras[i].StopRecording();
             }
@@ -235,26 +241,9 @@ namespace VideoRecorder
             }
             else
             {
-                switch(parameter.ToString())
-                {
-                    case "1":
-                        {
-                            Cameras[0].CameraUrl = newIp;
-                            Cameras[0].StartCamera();
-                            break;
-                        }
-                    case "2":
-                        {
-                            Cameras[1].CameraUrl = newIp;
-                            Cameras[1].StartCamera();
-                            break;
-                        }
-                    default:
-                        {
-                            MessageBox.Show("Something wrong with passing button parameter!");
-                            break;
-                        }
-                }
+                int x = Int32.Parse(parameter.ToString());
+                Cameras[x-1].CameraUrl = newIp;
+                Cameras[x-1].StartCamera();              
             }
         }
 
@@ -262,6 +251,29 @@ namespace VideoRecorder
         {
             return true;
         }
-      
+
+        private void prepButtons(int x)
+        {
+            _panelImages.Children.Clear();
+            for (int i = 0; i < x; i++)
+            {
+                System.Windows.Controls.Image img = new System.Windows.Controls.Image();
+                Button b = new Button();
+
+                b.Command = EnterIPCommand;
+                b.CommandParameter = i + 1;
+                b.BorderThickness = new Thickness(1.0);
+                b.Width = 100;
+                b.Height = 100;
+
+                Binding myBinding = new Binding("Cameras["+i+"].Image");              
+                img.SetBinding(System.Windows.Controls.Image.SourceProperty, myBinding);
+
+                b.Content = img;
+
+                _panelImages.Children.Add(b);
+            }
+        }
+
     }   
 }

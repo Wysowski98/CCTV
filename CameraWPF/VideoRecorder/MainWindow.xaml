@@ -8,9 +8,6 @@
         Width="609"
         Height="536"
         mc:Ignorable="d">
-    <Window.DataContext>
-        <local:MainWindowViewModel />
-    </Window.DataContext>
     <Grid Margin="10,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -25,24 +22,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Content="Video player" />
-            <Border Grid.Row="1"
-                    BorderBrush="Black"
-                    BorderThickness="1" Margin="0,0,288,0">
-                <Button Command="{Binding EnterIPCommand}" CommandParameter="1">
-                    <Image  Source="{Binding Cameras[0].Image}" />
-                </Button>
-            </Border>
-            <Border Grid.Row="1"
-                    BorderBrush="Black"
-                    BorderThickness="1" Margin="288,0,0,0">
-                <Button Command="{Binding EnterIPCommand}" CommandParameter="2">
-                    <Image Source="{Binding Cameras[1].Image}"/>
-                </Button>
-            </Border>
+            <WrapPanel x:Name="panelImages" HorizontalAlignment="Center">
+            </WrapPanel>
         </Grid>
         <!--  Source selection  -->
-        <Grid Grid.Row="2" IsSharedSizeScope="True">
+        <Grid Grid.Row="1" IsSharedSizeScope="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -52,7 +36,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="3"
                         Grid.ColumnSpan="2"
