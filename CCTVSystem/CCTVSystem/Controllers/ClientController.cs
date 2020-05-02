@@ -53,9 +53,13 @@ namespace CCTVSystem.Controllers
                 {
                     return Ok();
                 }
+                else
+                {
+                    return BadRequest("Incorrect password");
+                }
             }
 
-            return BadRequest("Failed to log in.");
+            return BadRequest("Incorrect username");
         }
 
         [HttpPost("Register")]
