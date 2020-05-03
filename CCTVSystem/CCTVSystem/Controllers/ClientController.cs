@@ -41,13 +41,13 @@ namespace CCTVSystem.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(request.Username);
 
             if (user != null)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
+                var signInResult = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
                 if (signInResult.Succeeded)
                 {
@@ -63,24 +63,21 @@ namespace CCTVSystem.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(string username, string password)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
             var user = new Client
             {
-                UserName = username
+                UserName = request.Username,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
             };
 
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, request.Password);
 
             if (result.Succeeded)
             {
-                // sign in
-                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
-
-                if (signInResult.Succeeded)
-                {
-                    return Ok();
-                }
+                return Ok();
             }
 
             return BadRequest("Failed to register.");

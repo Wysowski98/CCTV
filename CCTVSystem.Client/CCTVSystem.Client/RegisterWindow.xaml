@@ -25,6 +25,7 @@
                    FontWeight="Heavy"
                    FontSize="42"/>
         <TextBox HorizontalAlignment="Center"
+                 Name="FirstName"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="240"
@@ -35,6 +36,7 @@
                  FontSize="30"
                  HorizontalContentAlignment="Center"/>
         <TextBox HorizontalAlignment="Center"
+                 Name="LastName"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="240"
@@ -45,6 +47,7 @@
                  FontSize="30"
                  HorizontalContentAlignment="Center"/>
         <TextBox HorizontalAlignment="Center"
+                 Name="Username"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="240"
@@ -55,6 +58,7 @@
                  FontSize="30"
                  HorizontalContentAlignment="Center"/>
         <TextBox HorizontalAlignment="Center"
+                 Name="Email"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="240"
@@ -65,6 +69,7 @@
                  FontSize="30"
                  HorizontalContentAlignment="Center"/>
         <TextBox HorizontalAlignment="Center"
+                 Name="Password"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="240"
@@ -80,7 +85,8 @@
                 Width="160"
                 Margin="0, 380, 0, 0"
                 Background="CornflowerBlue"
-                Opacity="0.9">
+                Opacity="0.9"
+                Click="Button_Click">
             <TextBlock
                 Text="Submit"
                 FontFamily="Helvetica"

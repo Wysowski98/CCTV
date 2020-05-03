@@ -4,14 +4,16 @@ using CctvDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CCTVSystem.Migrations
 {
     [DbContext(typeof(CctvDbContext))]
-    partial class CctvDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200503115705_UpdateClient")]
+    partial class UpdateClient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -32,7 +32,6 @@
                  Width="240"
                  Margin="0, 80, 0, 0"
                  Opacity="0.75"
-                 Text="Username"
                  FontFamily="Helvetica"
                  FontSize="30"
                  HorizontalContentAlignment="Center"/>
@@ -43,7 +42,6 @@
                  Width="240"
                  Margin="0, 140, 0, 0"
                  Opacity="0.75"
-                 Password="Password"
                  FontFamily="Helvetica"
                  FontSize="30"
                  HorizontalContentAlignment="Center"/>
