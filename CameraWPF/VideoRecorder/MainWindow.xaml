@@ -47,7 +47,7 @@
                         Margin="5"
                         HorizontalAlignment="Left"
                         Command="{Binding StopCameraCommand}"
-                        Content="Stop video" />
+                        Content="Stop all videos" />
             </StackPanel>
         </Grid>
 
@@ -68,13 +68,13 @@
                     Margin="5"
                     HorizontalAlignment="Right"
                     Command="{Binding StartRecordingCommand}"
-                    Content="Start rec" />
+                    Content="Start rec. all" />
             <Button Grid.Column="3"
                     Width="100"
                     Margin="0,5"
                     HorizontalAlignment="Left"
                     Command="{Binding StopRecordingCommand}"
-                    Content="Stop rec" />
+                    Content="Stop rec. all" />
         </Grid>
 
     </Grid>

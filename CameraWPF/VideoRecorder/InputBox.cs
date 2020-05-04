@@ -13,14 +13,19 @@ namespace VideoRecorder
         string title = "InputBox";//title as heading
         string boxcontent;//title
         string defaulttext = "Enter stream IP address here...";//default textbox content       
-        string okbuttontext = "Enter";//Ok button content
-        string cancelbuttontext = "Cancel";//Ok button content
-        Brush BoxBackgroundColor = Brushes.GreenYellow;// Window Background
-        Brush InputBackgroundColor = Brushes.Ivory;// Textbox Background
+        string okbuttontext = "Turn on camera";
+        string cancelbuttontext = "Cancel";
+        string camerabuttontext = "Turn off the camera";
+        string offrecordingfbuttontext = "Turn off the recording";
+        string onrecordingbuttontext = "Turn on the recording";
+
         bool clicked = false;
         TextBox input = new TextBox();
         Button ok = new Button();
         Button cancel = new Button();
+        Button camera = new Button();
+        Button offrec = new Button();
+        Button onrec = new Button();
         bool inputreset = false;
 
         public InputBox(string content)
@@ -65,7 +70,7 @@ namespace VideoRecorder
             {
                 boxcontent = content;
             }
-            catch { boxcontent = "Error!"; }            
+            catch { boxcontent = "Error!"; }
             try
             {
                 title = Htitle;
@@ -93,20 +98,41 @@ namespace VideoRecorder
             content.Text = boxcontent;
             content.FontSize = FontSize;
             sp1.Children.Add(content);
-          
+
             input.FontSize = FontSize;
             input.HorizontalAlignment = HorizontalAlignment.Center;
             input.Text = defaulttext;
             input.MinWidth = 200;
             input.MouseEnter += input_MouseDown;
             sp1.Children.Add(input);
-            
-            ok.Width = 70;
+
+            ok.Width = 140;
             ok.Height = 30;
             ok.Click += ok_Click;
             ok.Content = okbuttontext;
             ok.HorizontalAlignment = HorizontalAlignment.Center;
             sp1.Children.Add(ok);
+
+            camera.Width = 140;
+            camera.Height = 30;
+            camera.Click += cameraoff_Click;
+            camera.Content = camerabuttontext;
+            camera.HorizontalAlignment = HorizontalAlignment.Center;
+            sp1.Children.Add(camera);
+
+            onrec.Width = 140;
+            onrec.Height = 30;
+            onrec.Click += onrec_Click;
+            onrec.Content = onrecordingbuttontext;
+            onrec.HorizontalAlignment = HorizontalAlignment.Center;
+            sp1.Children.Add(onrec);
+
+            offrec.Width = 140;
+            offrec.Height = 30;
+            offrec.Click += offrec_Click;
+            offrec.Content = offrecordingfbuttontext;
+            offrec.HorizontalAlignment = HorizontalAlignment.Center;
+            sp1.Children.Add(offrec);
 
             cancel.Width = 70;
             cancel.Height = 30;
@@ -143,6 +169,27 @@ namespace VideoRecorder
             clicked = true;
             Box.Close();
             input.Text = "CANCEL";
+        }
+
+        void onrec_Click(object sender, RoutedEventArgs e)
+        {
+            clicked = true;
+            Box.Close();
+            input.Text = "REC_ON";
+        }
+
+        void offrec_Click(object sender, RoutedEventArgs e)
+        {
+            clicked = true;
+            Box.Close();
+            input.Text = "REC_OFF";
+        }
+
+        void cameraoff_Click(object sender, RoutedEventArgs e)
+        {
+            clicked = true;
+            Box.Close();
+            input.Text = "CAM_OFF";
         }
 
         public string ShowDialog()
