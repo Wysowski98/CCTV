@@ -13,15 +13,15 @@ namespace CCTVSystem.Controllers
     [ApiController]
     public class VideoController : ControllerBase
     {
-        private readonly IVideoService _service;
+        private readonly ITransmissionService _service;
 
-        public VideoController(IVideoService service)
+        public VideoController(ITransmissionService service)
         {
             _service = service;
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> AddClients([FromBody] VideosDTO video)
+        public async Task<IActionResult> AddClients([FromBody] TransmissionDTO video)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");

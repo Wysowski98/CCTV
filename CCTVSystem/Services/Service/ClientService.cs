@@ -25,7 +25,7 @@ namespace Services.Service
 
         public async Task<List<ClientDTO>> GetClients()
         {
-            var clientList = await _context.Clients.Include(x =>x.FavouriteCctvs).ToListAsync();
+            var clientList = await _context.Clients.ToListAsync();
             var clientListDto = Mapper.Map<List<Client>, List<ClientDTO>>(clientList);
             return clientListDto;
         }

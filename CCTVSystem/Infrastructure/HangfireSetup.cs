@@ -9,8 +9,8 @@ namespace Infrastructure
 {
     public class HangfireSetup
     {
-        private readonly IVideoService _service;
-        public HangfireSetup(IVideoService service)
+        private readonly ITransmissionService _service;
+        public HangfireSetup(ITransmissionService service)
         {
             _service = service;
         }

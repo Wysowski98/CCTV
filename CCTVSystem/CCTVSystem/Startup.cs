@@ -71,7 +71,7 @@ namespace CCTVSystem
         private void SetIOC(IServiceCollection service)
         {
             service.AddScoped<IClientService, ClientService>();
-            service.AddScoped<IVideoService, VideoService>();
+            service.AddScoped<ITransmissionService, TransmissionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

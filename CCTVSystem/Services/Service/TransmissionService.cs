@@ -11,25 +11,25 @@ using System.IO;
 
 namespace Services.Service
 {
-    public class VideoService : IVideoService
+    public class TransmissionService : ITransmissionService
     {
         private readonly CctvDbContext _context;
 
-        public VideoService(CctvDbContext context)
+        public TransmissionService(CctvDbContext context)
         {
             _context = context;
         }
 
-        public async Task AddVideo(VideosDTO newVideo)
+        public async Task AddVideo(TransmissionDTO newVideo)
         { 
-            await _context.Video.AddAsync(Mapper.Map<VideosDTO, Videos>(newVideo));
+            await _context.Transmissions.AddAsync(Mapper.Map<TransmissionDTO, Transmission>(newVideo));
             await _context.SaveChangesAsync();
         }
 
         public void DeleteSavedVideos()
         {
-            var range =_context.Video.ToList();
-            _context.Video.RemoveRange(range);
+            var range =_context.Transmissions.ToList();
+            _context.Transmissions.RemoveRange(range);
             _context.SaveChanges();
             DeleteVideosOnHardDrive();
         }

@@ -7,7 +7,7 @@ namespace Services.DTO
 {
     public class ClientDTO: IdentityUser
     {
-        public List<CctvDTO> FavouriteCctvs { get; set; }
+        public List<CameraDTO> FavouriteCctvs { get; set; }
 
         public string LastViewedStream { get; set; }
     }

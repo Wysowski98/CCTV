@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Services.Service
 {
-    public interface IVideoService
+    public interface ITransmissionService
     {
-        Task AddVideo(VideosDTO newVideo);
+        Task AddVideo(TransmissionDTO newVideo);
         void DeleteSavedVideos();
     }
 }

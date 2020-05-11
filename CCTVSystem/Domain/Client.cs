@@ -10,8 +10,6 @@ namespace Domain
 
         public string LastName { get; set; }
 
-        public List<Cctv> FavouriteCctvs { get; set; }
-
-        public string LastViewedStream { get; set; }
+        public Transmission Transmission { get; set; }
     }
 }
