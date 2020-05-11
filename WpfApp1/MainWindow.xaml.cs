@@ -33,17 +33,31 @@ namespace WpfApp1
             Cotu.Children.Clear();
             switch (index)
             {
-                case 0:
+           
+                case 1:
                     usc = new Transmission();
                     Cotu.Children.Add(usc);
                     break;
 
+                case 2:
+                    usc = new History();
+                    Cotu.Children.Add(usc);
+                    break;
 
                 case 3:
+                    usc = new DeleteRecords();
+                    Cotu.Children.Add(usc);
+                    break;
+
+                case 4:
                     usc = new password();
                     Cotu.Children.Add(usc);
                     break;
 
+               case 5:
+                    usc = new Page1();
+                    Cotu.Children.Add(usc);
+                    break;
             }
         }
     }

@@ -5,12 +5,42 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp1"
       mc:Ignorable="d"
-      Height="320" Width="650" >
+      Height="384" Width="570" >
+
 
 
 
     <Grid Background="#FFE0E5EB">
+        <Grid Height="192" VerticalAlignment="Top">
+            <TextBlock   Text="Select the width"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontSize="20"
+              
+                FontWeight="Bold"
+                FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="0,60,0,0">
+            </TextBlock>
+            <ComboBox x:Name="ComboBox1" Width="100" Height="27" ItemsSource="{Binding count}" SelectionChanged="ComboBox_SelectionChanged"    HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,155,0,0"/>
+        </Grid>
+
+        <Grid Height="192" VerticalAlignment="Bottom">
+            <TextBlock Text="Select the height"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"   FontSize="20"  FontWeight="Bold" FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="0,0,0,80">
+            </TextBlock>
+
+
+            <ComboBox x:Name="ComboBox2" Width="100" Height="28" ItemsSource="{Binding count}" SelectionChanged="ComboBox_SelectionChanged"   HorizontalAlignment="Center"  VerticalAlignment="Center">
+            </ComboBox>
+        </Grid>
+
+
+
+
+
+
+
 
     </Grid>
- 
+
 </UserControl>

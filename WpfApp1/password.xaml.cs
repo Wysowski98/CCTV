@@ -25,7 +25,23 @@ namespace WpfApp1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //polaczyc z tym od dawida zeby zmienic haslo z obecnego juz z  ClientViewModel
+
+            if (new2.Password != new3.Password)
+                MessageBox.Show("Hasła nie są identyczne.");
+            else if (old.Password == new3.Password)
+                MessageBox.Show("Nowe hasło nie różni się od starego");
+
+            else if (old.Password == new2.Password)
+                MessageBox.Show("Nowe hasło nie różni się od starego");
+            else
+            {
+                MessageBox.Show("Zmieniono hasło");
+            }
+
+
 
         }
+
     }
 }

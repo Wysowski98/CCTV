@@ -14,26 +14,13 @@ using System.Windows.Shapes;
 namespace WpfApp1
 {
     /// <summary>
-    /// Logika interakcji dla klasy Transmission.xaml
+    /// Logika interakcji dla klasy Page1.xaml
     /// </summary>
-    public partial class Transmission : UserControl
+    public partial class Page1 : UserControl
     {
-        public int[] count { get; set; }
-        public Transmission()
+        public Page1()
         {
-    
             InitializeComponent();
-            for (int i = 1; i < 50; i++)
-            {
-                ComboBox1.Items.Add(i);
-                ComboBox2.Items.Add(i);
-            }
-        }
-
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }
