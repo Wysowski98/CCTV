@@ -150,7 +150,7 @@ namespace VideoRecorder
 
         private List<Camera> _cameras = new List<Camera>();
         private WrapPanel _panelImages;
-        private int _viewType = 9;
+        private int _viewType = 12;
 
         #endregion
 
@@ -162,11 +162,11 @@ namespace VideoRecorder
             {
                 Cameras.Add(new Camera());
             }
-        
+         
             EnterIPCommand = MyCommand;
-            StartRecordingCommand = new RelayCommand(startRecording);
-            StopRecordingCommand = new RelayCommand(stopRecording);
-            StopCameraCommand = new RelayCommand(stopCamera);
+            StartRecordingCommand = new RelayCommand(startAllRecordings);
+            StopRecordingCommand = new RelayCommand(stopAllRecordings);
+            StopCameraCommand = new RelayCommand(stopAllCameras);
             _panelImages = panelImages;
             prepButtons(_viewType);
         }
@@ -194,7 +194,7 @@ namespace VideoRecorder
 
         #endregion
 
-        private void stopCamera()
+        private void stopAllCameras()
         {
             for (int i = 0; i < _viewType; i++)
             {
@@ -202,7 +202,7 @@ namespace VideoRecorder
             }
         }
 
-        private void startRecording()
+        private void startAllRecordings()
         {
             for (int i = 0; i < _viewType; i++)
             {
@@ -210,7 +210,7 @@ namespace VideoRecorder
             }
         }
 
-        private void stopRecording()
+        private void stopAllRecordings()
         {
             for (int i = 0; i < _viewType; i++)
             {
@@ -235,15 +235,46 @@ namespace VideoRecorder
         private void CommandExecute(object parameter)
         {
             string newIp = new InputBox("New camera stream IP").ShowDialog();
-            if (newIp == "CANCEL")
+            int i = Int32.Parse(parameter.ToString());
+            i--;
+          
+            switch (newIp)
             {
-                MessageBox.Show("Entering IP canceled");
-            }
-            else
-            {
-                int x = Int32.Parse(parameter.ToString());
-                Cameras[x-1].CameraUrl = newIp;
-                Cameras[x-1].StartCamera();              
+                case "CANCEL":
+                    {
+                        MessageBox.Show("Entering IP canceled");
+                        break;
+                    }
+                case "CAM_OFF":
+                    {
+                        Cameras[i].StopCamera();
+                        break;
+                    }
+                case "REC_ON":
+                    {
+                        Cameras[i].StartRecording();
+                        MessageBox.Show("Recording on camera" + (i+1) + " started!");
+                        break;
+                    }
+                case "REC_OFF":
+                    {
+                        Cameras[i].StopRecording();
+                        MessageBox.Show("Recording on camera" + (i+1) + " was stopped!");
+                        break;
+                    }
+                default:
+                    {
+                        if (i < 0 || i > 24)
+                        {
+                            MessageBox.Show("Something wrong with passing button parameter!");
+                        }
+                        else
+                        {
+                            Cameras[i].CameraUrl = newIp;
+                            Cameras[i].StartCamera();
+                        }
+                        break;
+                    }
             }
         }
 
