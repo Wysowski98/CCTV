@@ -11,35 +11,32 @@
 
 
     <Grid Background="#FFE0E5EB">
-        <Grid Height="192" VerticalAlignment="Top">
-            <TextBlock   Text="Select the width"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="20"
-              
+        <Grid Height="192" VerticalAlignment="Center">
+            <TextBlock   Text="Enter the width"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                FontSize="20"              
                 FontWeight="Bold"
-                FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="0,60,0,0">
-            </TextBlock>
-            <ComboBox x:Name="ComboBox1" Width="100" Height="27" ItemsSource="{Binding count}" SelectionChanged="ComboBox_SelectionChanged"    HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,155,0,0"/>
-        </Grid>
-
-        <Grid Height="192" VerticalAlignment="Bottom">
-            <TextBlock Text="Select the height"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"   FontSize="20"  FontWeight="Bold" FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="0,0,0,80">
+                FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="70,50,0,0">
             </TextBlock>
 
+            <TextBlock   Text="Enter the height"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" 
+                FontSize="20"
+                FontWeight="Bold"
+                FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="70,50,70,50">
+            </TextBlock>
 
-            <ComboBox x:Name="ComboBox2" Width="100" Height="28" ItemsSource="{Binding count}" SelectionChanged="ComboBox_SelectionChanged"   HorizontalAlignment="Center"  VerticalAlignment="Center">
-            </ComboBox>
+            <TextBox Name="textbox2" Width="150" Height="30"  HorizontalAlignment="Right" KeyDown="KeyDown_textbox2"
+                VerticalAlignment="Bottom" Margin="70,50,80,50"  FontSize="15" ></TextBox>
+            <TextBox Name="textbox1" Width="150" Height="30"  HorizontalAlignment="Right" 
+                VerticalAlignment="Top" Margin="80,50,80,50" FontSize="15"  KeyDown="KeyDown_textbox1"></TextBox>
         </Grid>
 
-
-
-
-
-
-
+        <Grid Height="50" VerticalAlignment="Bottom" Margin="0,0,0,30">
+            <Button Width="150" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Height="50" Background="#FF8AC3F1" BorderBrush="{x:Null}" Foreground="#FF28689C" Click="Button_Click" />
+        </Grid>
 
     </Grid>
 

@@ -18,9 +18,22 @@ namespace WpfApp1
     /// </summary>
     public partial class Page1 : UserControl
     {
+        public class ACCOUNT
+        {
+            public int Username { get; set; }
+            public string Email { get; set; }
+            public bool Role { get; set; }
+            public bool Trans { get; set; }
+        }
         public Page1()
         {
             InitializeComponent();
+            role1.Text = "Admin";
+            email1.Text = "lalalalal@o2.pl";
+            username1.Text = "radpla";
+            id1.Text = "123.567.456";
+
+
         }
     }
 }
