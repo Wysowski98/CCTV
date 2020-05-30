@@ -49,10 +49,6 @@ namespace CCTVSystem.Client
             else
                 MessageBox.Show("Bląd rejestracji!");
 
-            LoginWindow windowTwo = new LoginWindow();
-
-            windowTwo.Show();
-            this.Close();
         }
     }
 }
