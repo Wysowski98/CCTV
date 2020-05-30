@@ -14,7 +14,12 @@
                     <GradientStop Color="Azure"/>
                 </LinearGradientBrush>
             </Border.Background>
+          
+
         </Border>
+        <Label x:Name="label1" Content="You don't have an account? " HorizontalAlignment="Left" Margin="285,0,0,10" Width="158" Height="25" VerticalAlignment="Bottom"/>
+        <Label x:Name="registerLabel" Content="Sign up " Margin="446,246,0,0" Height="38" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64" Foreground="#FF3F14FF" FontSize="13" FontWeight="Normal" FontStyle="Italic"/>
+
 
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Top"
