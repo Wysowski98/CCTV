@@ -39,12 +39,16 @@ namespace CCTVSystem.Client
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = await client.PostAsync("https://localhost:44309/api/Client/Login", byteContent);
-            
+
             if(response.StatusCode == HttpStatusCode.OK)
             {
                 MessageBox.Show("Zalogowalo Cie");
+                MainWindow mw = new MainWindow();
+                mw.Show();
+                this.Close();
             }
-         
+            else
+                MessageBox.Show("Bład logowania!");
         }
     }
 }

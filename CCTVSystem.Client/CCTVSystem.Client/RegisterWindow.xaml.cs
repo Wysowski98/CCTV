@@ -46,6 +46,8 @@ namespace CCTVSystem.Client
             {
                 MessageBox.Show("Zarejestrowalo Cie");
             }
+            else
+                MessageBox.Show("Bląd rejestracji!");
 
             LoginWindow windowTwo = new LoginWindow();
 

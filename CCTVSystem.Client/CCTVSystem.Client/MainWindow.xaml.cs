@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CCTVSystem.Client.ViewModels;
 
 namespace CCTVSystem.Client
 {
@@ -22,40 +20,45 @@ namespace CCTVSystem.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        static HttpClient client = new HttpClient();
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        static async Task<List<ClientViewModel>> GetAPIAsync(string path)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            List<ClientViewModel> clients = null;
-
-            HttpResponseMessage response = await client.GetAsync(path);
-
-            if (response.IsSuccessStatusCode)
-
+            int index = int.Parse(((Button)e.Source).Uid);
+          
+            GridCursor.Margin = new Thickness(0, (80 * index) , 0, 0 );
+            UserControl usc = null;
+            Cotu.Children.Clear();
+            switch (index)
             {
+           
+                case 1:
+                    usc = new Transmission();
+                    Cotu.Children.Add(usc);
+                    break;
 
-                clients = await response.Content.ReadAsAsync<List<ClientViewModel>>();
+                case 2:
+                    usc = new History();
+                    Cotu.Children.Add(usc);
+                    break;
 
+                case 3:
+                    usc = new DeleteRecords();
+                    Cotu.Children.Add(usc);
+                    break;
+
+                case 4:
+                    usc = new password();
+                    Cotu.Children.Add(usc);
+                    break;
+
+               case 5:
+                    usc = new InfoPage();
+                    Cotu.Children.Add(usc);
+                    break;
             }
-
-            return clients;
-
-        }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            List<ClientViewModel> clients = await GetAPIAsync("https://localhost:44309/api/Client");
-            this.dataGrid1.ItemsSource = clients;
-        }
-
-        private void Button_Click2(object sender, RoutedEventArgs e)
-        {
-            Main.Content = new AddClient();
         }
     }
 }
