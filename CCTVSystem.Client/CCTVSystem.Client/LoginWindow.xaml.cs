@@ -50,5 +50,12 @@ namespace CCTVSystem.Client
             else
                 MessageBox.Show("Bład logowania!");
         }
+
+        private void registerLabel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            RegisterWindow rw = new RegisterWindow();
+            rw.Show();
+            this.Close();
+        }
     }
 }
