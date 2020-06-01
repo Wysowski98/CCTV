@@ -33,7 +33,7 @@ namespace Services.Service
 
         public async Task<List<CameraDTO>> GetClientCameras(Client client)
         {
-            var cameraList = await _context.Cameras.Where(cam => cam.Client == client).ToListAsync();
+            var cameraList = await _context.Cameras.Where(cam => cam.Client.Id == client.Id).ToListAsync();
             var cameraListDto = Mapper.Map<List<Camera>, List<CameraDTO>>(cameraList);
             return cameraListDto;
         }
