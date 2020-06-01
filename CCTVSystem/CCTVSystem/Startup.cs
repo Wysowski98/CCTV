@@ -72,6 +72,7 @@ namespace CCTVSystem
         {
             service.AddScoped<IClientService, ClientService>();
             service.AddScoped<ITransmissionService, TransmissionService>();
+            service.AddScoped<ICameraService, CameraService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
