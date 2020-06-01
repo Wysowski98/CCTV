@@ -31,7 +31,7 @@ namespace CCTVSystem.Client
             var values = new LoginCommand
             {
                 Username =  this.username.Text,
-                Password= this.password.Password,
+                Password = this.password.Password,
             };
 
             var myContent = JsonConvert.SerializeObject(values);
@@ -40,10 +40,12 @@ namespace CCTVSystem.Client
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = await client.PostAsync("https://localhost:44309/api/Client/Login", byteContent);
 
-            if(response.StatusCode == HttpStatusCode.OK)
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                MessageBox.Show("Zalogowalo Cie");
-                MainWindow mw = new MainWindow();
+                string responseBody = await response.Content.ReadAsStringAsync();
+                var loggedClient = JsonConvert.DeserializeObject<ClientViewModel>(responseBody);
+                MessageBox.Show("Logowanie pomyślne. Witaj " + loggedClient.FirstName +"!");
+                MainWindow mw = new MainWindow(loggedClient);
                 mw.Show();
                 this.Close();
             }

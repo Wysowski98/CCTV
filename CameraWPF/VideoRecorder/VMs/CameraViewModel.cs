@@ -1,14 +1,15 @@
-﻿using Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Services.DTO
+namespace CCTVSystem.Client.ViewModels
 {
-    public class CameraDTO
+    public class CameraViewModel
     {
         public int Id { get; set; }
+
         public string IpAddress { get; set; }
-        public Client Client { get; set; }
+
+        public ClientViewModel Client { get; set; }
     }
 }

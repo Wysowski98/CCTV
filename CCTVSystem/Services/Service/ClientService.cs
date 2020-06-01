@@ -22,7 +22,6 @@ namespace Services.Service
             _context = context;
         }
 
-
         public async Task<List<ClientDTO>> GetClients()
         {
             var clientList = await _context.Clients.ToListAsync();

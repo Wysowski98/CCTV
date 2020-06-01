@@ -129,7 +129,9 @@
       <DependentUpon>Transmission.xaml</DependentUpon>
     </Compile>
     <Compile Include="VMs\CctvViewModel.cs" />
+    <Compile Include="VMs\CameraViewModel.cs" />
     <Compile Include="VMs\ClientViewModel.cs" />
+    <Compile Include="VMs\CameraCommand.cs" />
     <Compile Include="VMs\LoginCommand.cs" />
     <Compile Include="VMs\RegisterCommand.cs" />
     <Page Include="DeleteRecord.xaml">
@@ -152,20 +154,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Camera.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BitmapHelpers.cs" />
     <Compile Include="InputBox.cs" />
-    <Compile Include="Camera.xaml.cs">
-      <DependentUpon>Camera.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

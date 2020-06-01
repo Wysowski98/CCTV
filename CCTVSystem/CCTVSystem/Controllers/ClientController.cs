@@ -51,7 +51,7 @@ namespace CCTVSystem.Controllers
 
                 if (signInResult.Succeeded)
                 {
-                    return Ok();
+                    return Ok(user);
                 }
                 else
                 {

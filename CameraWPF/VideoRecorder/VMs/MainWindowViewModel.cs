@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,6 +20,7 @@ using AForge.Video.DirectShow;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace CCTVSystem.Client.ViewModels
 {
@@ -29,6 +33,13 @@ namespace CCTVSystem.Client.ViewModels
             cameraId = cameraAmount - 1;
         }
 
+        public Camera(string url)
+        {
+            cameraAmount++;
+            cameraId = cameraAmount - 1;
+            cameraUrl = url;
+            StartCamera();
+        }
         #endregion
 
         #region Private fields
@@ -146,8 +157,12 @@ namespace CCTVSystem.Client.ViewModels
     {
         #region Private fields
 
-        private const int _maxCameras = 25;
+        private ClientViewModel _loggedClient;
+        private static HttpClient client = new HttpClient();
 
+        private const int _maxCameras = 15;
+
+        private List<CameraViewModel> _clientCameras;
         private List<Camera> _cameras = new List<Camera>();
         private WrapPanel _panelImages;
         private int _viewType = 12;
@@ -156,11 +171,22 @@ namespace CCTVSystem.Client.ViewModels
 
         #region Constructor
 
-        public MainWindowViewModel(WrapPanel panelImages)
+        public MainWindowViewModel(WrapPanel panelImages, ClientViewModel loggedClient)
         {
+            _loggedClient = loggedClient;
+            getClientCameras();
+
             for (int i = 0; i < _maxCameras; i++)
             {
-                Cameras.Add(new Camera());
+                if (_clientCameras != null)
+                {
+                    if (!String.IsNullOrEmpty(_clientCameras[i].IpAddress))
+                        Cameras.Add(new Camera(_clientCameras[i].IpAddress));
+                    else
+                        Cameras.Add(new Camera());
+                }
+                else
+                    Cameras.Add(new Camera());
             }
          
             EnterIPCommand = MyCommand;
@@ -193,6 +219,23 @@ namespace CCTVSystem.Client.ViewModels
         public ICommand StopCameraCommand { get; private set; }
 
         #endregion
+
+        private async void getClientCameras()
+        {
+            var myContent = JsonConvert.SerializeObject(_loggedClient);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/GetCams", byteContent);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                string responseBody = await response.Content.ReadAsStringAsync();
+                _clientCameras = JsonConvert.DeserializeObject<List<CameraViewModel>>(responseBody);               
+            }
+            else
+                MessageBox.Show("Bład uzyskiwania kamer użytkownika!");
+        }
 
         private void stopAllCameras()
         {
@@ -232,7 +275,7 @@ namespace CCTVSystem.Client.ViewModels
 
         }
 
-        private void CommandExecute(object parameter)
+        private async void CommandExecute(object parameter)
         {
             string newIp = new InputBox("New camera stream IP").ShowDialog();
             int i = Int32.Parse(parameter.ToString());
@@ -271,6 +314,21 @@ namespace CCTVSystem.Client.ViewModels
                         else
                         {
                             Cameras[i].CameraUrl = newIp;
+
+                            var values = new CameraCommand
+                            {
+                                Url = newIp,
+                                Client = _loggedClient
+                            };
+                            var myContent = JsonConvert.SerializeObject(values);
+                            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                            var byteContent = new ByteArrayContent(buffer);
+                            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                            HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/Add", byteContent);
+
+                            if (response.StatusCode != HttpStatusCode.OK)
+                                MessageBox.Show("Bład dodawania nowej kamery!");
+
                             Cameras[i].StartCamera();
                         }
                         break;

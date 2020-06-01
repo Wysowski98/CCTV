@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CCTVSystem.Client.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,13 @@ namespace CCTVSystem.Client
         {
             InitializeComponent();
         }
+
+        public MainWindow(ClientViewModel loggedClient)
+        {
+            InitializeComponent();
+            this.DataContext = new MainWindowViewModel(panelImages, loggedClient);
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             int index = int.Parse(((Button)e.Source).Uid);

@@ -19,7 +19,7 @@
                     Foreground="#FF5073A6" HorizontalAlignment="Right" Height="37" Margin="0,0,10,0"/>
         </Grid>
 
-        <Grid>
+        <Grid Margin="130,50,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
