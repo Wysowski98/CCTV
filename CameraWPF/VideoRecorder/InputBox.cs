@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace VideoRecorder
+namespace CCTVSystem.Client
 {
     internal class InputBox
     {
