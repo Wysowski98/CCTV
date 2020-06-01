@@ -9,6 +9,6 @@ namespace Services
     {
         public string Url { get; set; }
        
-        public ClientDTO Client { get; set; }
+        public string clientId { get; set; }
     }
 }

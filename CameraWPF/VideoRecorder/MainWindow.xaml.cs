@@ -21,6 +21,8 @@ namespace CCTVSystem.Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel mv;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +31,8 @@ namespace CCTVSystem.Client
         public MainWindow(ClientViewModel loggedClient)
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel(panelImages, loggedClient);
+            mv = new MainWindowViewModel(panelImages, loggedClient);
+            this.DataContext = mv;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,9 +42,13 @@ namespace CCTVSystem.Client
             GridCursor.Margin = new Thickness(0, (80 * index) , 0, 0 );
             UserControl usc = null;
             Cotu.Children.Clear();
+            panelImages.Visibility = System.Windows.Visibility.Hidden;
             switch (index)
             {
-           
+                case 0:
+                    panelImages.Visibility = System.Windows.Visibility.Visible;
+                    break;
+
                 case 1:
                     usc = new Transmission();
                     Cotu.Children.Add(usc);
@@ -67,6 +74,11 @@ namespace CCTVSystem.Client
                     Cotu.Children.Add(usc);
                     break;
             }
+        }
+
+        private async void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            await mv.getClientCameras();
         }
     }
 }

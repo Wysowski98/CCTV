@@ -9,8 +9,7 @@ namespace CCTVSystem.Client.ViewModels
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime CreationDate { get; set; }
-        public string MailAddress { get; set; }
+        public string Email { get; set; }
         public List<CctvViewModel> FavouriteCctvs { get; set; }
     }
 }

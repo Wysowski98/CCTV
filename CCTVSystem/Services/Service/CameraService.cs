@@ -26,6 +26,11 @@ namespace Services.Service
             await _context.SaveChangesAsync();
         }
 
+        public Client FindClient(string id)
+        {
+            return _context.Clients.FirstOrDefault(cli => cli.Id == id);
+        }
+
         public async Task<List<CameraDTO>> GetClientCameras(Client client)
         {
             var cameraList = await _context.Cameras.Where(cam => cam.Client == client).ToListAsync();

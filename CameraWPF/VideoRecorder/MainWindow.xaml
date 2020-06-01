@@ -19,7 +19,7 @@
                     Foreground="#FF5073A6" HorizontalAlignment="Right" Height="37" Margin="0,0,10,0"/>
         </Grid>
 
-        <Grid Margin="130,50,0,0">
+        <Grid Margin="130,75,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -29,6 +29,8 @@
         </Grid>
 
         <Grid Height="434"  Width="130" VerticalAlignment="Center"  HorizontalAlignment="Left"  Background="#FF194A96">
+            <Button x:Name="loadButton" Width="130" FontSize="13" Content="LoadCameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Margin="0,50,0,344" Click="LoadButton_Click"/>
+
             <StackPanel Orientation="Vertical"  VerticalAlignment="Top"  Margin="0,198,0,0">
 
                 <Button Uid="0" Width="130" FontSize="13" Content="HOME" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>

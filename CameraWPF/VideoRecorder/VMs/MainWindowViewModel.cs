@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -162,10 +163,10 @@ namespace CCTVSystem.Client.ViewModels
 
         private const int _maxCameras = 15;
 
-        private List<CameraViewModel> _clientCameras;
+        private List<CameraViewModel> _clientCameras = new List<CameraViewModel>();
         private List<Camera> _cameras = new List<Camera>();
         private WrapPanel _panelImages;
-        private int _viewType = 12;
+        private int _viewType = 15;
 
         #endregion
 
@@ -174,19 +175,10 @@ namespace CCTVSystem.Client.ViewModels
         public MainWindowViewModel(WrapPanel panelImages, ClientViewModel loggedClient)
         {
             _loggedClient = loggedClient;
-            getClientCameras();
 
             for (int i = 0; i < _maxCameras; i++)
-            {
-                if (_clientCameras != null)
-                {
-                    if (!String.IsNullOrEmpty(_clientCameras[i].IpAddress))
-                        Cameras.Add(new Camera(_clientCameras[i].IpAddress));
-                    else
-                        Cameras.Add(new Camera());
-                }
-                else
-                    Cameras.Add(new Camera());
+            {           
+                Cameras.Add(new Camera());
             }
          
             EnterIPCommand = MyCommand;
@@ -194,7 +186,7 @@ namespace CCTVSystem.Client.ViewModels
             StopRecordingCommand = new RelayCommand(stopAllRecordings);
             StopCameraCommand = new RelayCommand(stopAllCameras);
             _panelImages = panelImages;
-            prepButtons(_viewType);
+            prepButtons(_viewType);          
         }
 
         #endregion
@@ -220,7 +212,7 @@ namespace CCTVSystem.Client.ViewModels
 
         #endregion
 
-        private async void getClientCameras()
+        public async Task getClientCameras()
         {
             var myContent = JsonConvert.SerializeObject(_loggedClient);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
@@ -231,7 +223,16 @@ namespace CCTVSystem.Client.ViewModels
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 string responseBody = await response.Content.ReadAsStringAsync();
-                _clientCameras = JsonConvert.DeserializeObject<List<CameraViewModel>>(responseBody);               
+                var _cams = JsonConvert.DeserializeObject<List<CameraViewModel>>(responseBody);
+                int i = 0;
+                foreach (var cam in _cams)
+                {
+                    if (i > 14)
+                        break;
+                    Cameras[i].CameraUrl = cam.IpAddress;
+                    Cameras[i].StartCamera();
+                    i++;
+                }
             }
             else
                 MessageBox.Show("Bład uzyskiwania kamer użytkownika!");
@@ -318,13 +319,13 @@ namespace CCTVSystem.Client.ViewModels
                             var values = new CameraCommand
                             {
                                 Url = newIp,
-                                Client = _loggedClient
+                                ClientId = _loggedClient.Id
                             };
                             var myContent = JsonConvert.SerializeObject(values);
                             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
                             var byteContent = new ByteArrayContent(buffer);
                             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                            HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/Add", byteContent);
+                            HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/AddCam", byteContent);
 
                             if (response.StatusCode != HttpStatusCode.OK)
                                 MessageBox.Show("Bład dodawania nowej kamery!");

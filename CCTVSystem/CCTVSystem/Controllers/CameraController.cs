@@ -23,7 +23,7 @@ namespace CCTVSystem.Controllers
             _service = service;
         }
 
-        [HttpPost("Add")]
+        [HttpPost("AddCam")]
         public async Task<IActionResult> AddCamera([FromBody] CameraRequest req)
         {
             if (!ModelState.IsValid)
@@ -32,7 +32,7 @@ namespace CCTVSystem.Controllers
             var _camera = new Camera
             {
                 IpAddress = req.Url,
-                Client = Mapper.Map<ClientDTO, Client>(req.Client)
+                Client = _service.FindClient(req.clientId)
             };
 
             await _service.AddCamera(_camera);
