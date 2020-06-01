@@ -11,5 +11,7 @@ namespace Domain
 
         public string IpAddress { get; set; }
 
+        public Client Client { get; set; }
+
     }
 }
