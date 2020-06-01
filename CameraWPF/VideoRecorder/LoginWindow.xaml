@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CCTVSystem.Client"
         mc:Ignorable="d"
-        Title="Login" Height="300" Width="520">
+        Title="Login" Height="330" Width="520">
     <Grid>
         <Border>
             <Border.Background>
@@ -14,7 +14,12 @@
                     <GradientStop Color="Azure"/>
                 </LinearGradientBrush>
             </Border.Background>
+
+
         </Border>
+        <Label x:Name="label1" Content="You don't have an account? " Margin="0,249,83,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="160"/>
+        <Label x:Name="registerLabel" Content="Sign up " Margin="0,248,28,0" Foreground="#FF3F14FF" FontSize="13" FontWeight="Normal" FontStyle="Italic" MouseDoubleClick="registerLabel_MouseDoubleClick" Height="35" VerticalAlignment="Top" RenderTransformOrigin="0.781,0.458" HorizontalAlignment="Right" Width="64"/>
+
 
         <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Top"

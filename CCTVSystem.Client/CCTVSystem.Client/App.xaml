@@ -1,9 +1,0 @@
-﻿<Application x:Class="CCTVSystem.Client.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CCTVSystem.Client"
-             StartupUri="RegisterWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>

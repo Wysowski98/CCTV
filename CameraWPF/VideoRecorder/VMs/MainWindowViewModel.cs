@@ -18,7 +18,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Win32;
 
-namespace VideoRecorder
+namespace CCTVSystem.Client.ViewModels
 {
     class Camera : ObservableObject, IDisposable
     {
