@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CCTVSystem.Client"
         mc:Ignorable="d"
-        Title="Login" Height="330" Width="520">
+        Title="Login" Height="330" Width="560">
     <Grid>
         <Border>
             <Border.Background>
@@ -29,7 +29,15 @@
                    FontFamily="Helvetica"
                    FontWeight="Heavy"
                    FontSize="42"/>
-
+        <TextBlock HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="10, 80, 0, 0"
+                   Height="40"
+                   Width="200"
+                   Opacity="0.9"
+                   Text="Username:"
+                   FontFamily="Helvetica"
+                   FontSize="30"/>
         <TextBox Name="username"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
@@ -40,6 +48,15 @@
                  FontFamily="Helvetica"
                  FontSize="30"
                  HorizontalContentAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="10, 140, 0, 0"
+                   Height="40"
+                   Width="200"
+                   Opacity="0.9"
+                   Text="Password:"
+                   FontFamily="Helvetica"
+                   FontSize="30"/>
         <PasswordBox Name="password"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
