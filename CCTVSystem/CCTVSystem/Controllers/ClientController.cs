@@ -8,6 +8,10 @@ using Services.Service;
 using Services.DTO;
 using Domain;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Security.Claims;
+using System.Windows.Markup;
+using Microsoft.EntityFrameworkCore;
 
 namespace CCTVSystem.Controllers
 {
@@ -18,15 +22,14 @@ namespace CCTVSystem.Controllers
         private readonly IClientService _service;
         private readonly UserManager<Client> _userManager;
         private readonly SignInManager<Client> _signInManager;
-
         public ClientController(IClientService service, UserManager<Client> userManager, SignInManager<Client> signInManager)
         {
             _service = service;
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-        [HttpGet]
+        
+        [HttpGet("getUsers")]
         public async Task<IActionResult> GetClients()
         {
             var classes = await _service.GetClients();
@@ -47,10 +50,14 @@ namespace CCTVSystem.Controllers
 
             if (user != null)
             {
+
                 var signInResult = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
                 if (signInResult.Succeeded)
                 {
+                    await _userManager.AddClaimAsync(user, new Claim("test", "Hello"));
+                    var claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(user);
+                    await _signInManager.RefreshSignInAsync(user);
                     return Ok(user);
                 }
                 else
@@ -58,7 +65,6 @@ namespace CCTVSystem.Controllers
                     return BadRequest("Incorrect password");
                 }
             }
-
             return BadRequest("Incorrect username");
         }
 
@@ -81,6 +87,46 @@ namespace CCTVSystem.Controllers
             }
 
             return BadRequest("Failed to register.");
+        }
+
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
+        {
+            var validators = _userManager.PasswordValidators;
+            foreach (var validator in validators)
+            {
+                //validator sprawdza czy nowe haslo spelnia wymagania
+                var check = await validator.ValidateAsync(_userManager, null, request.newPassword2);
+                if (!check.Succeeded)
+                {
+                    return BadRequest("Nowe haslo nie spelnia wymagan");
+                }
+                //szuka uzytkownika po przekazanym id
+                var user = await _userManager.FindByIdAsync(request.id);
+                //zmiana hasla
+                var result = await _userManager.ChangePasswordAsync(user, request.oldPassword, request.newPassword2);
+                if (result.Succeeded)
+                {
+                    return Ok("Pomyślnie zmieniono hasło");
+                }
+            }
+            return BadRequest("Nie udało się zmienić hasła");
+        }
+
+        [HttpPost("GetUserProfile")]
+        public async Task<IActionResult> GetUserProfile(GetUserProfileRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(request.id);
+            var username = await _userManager.GetUserNameAsync(user);
+            var email = await _userManager.GetEmailAsync(user);
+            var role = await _userManager.GetRolesAsync(user);
+            var userProfile = new UserProfile
+            {
+                Username = username,
+                Email = email,
+                Role = role
+            };
+            return Ok(userProfile);
         }
     }
 }

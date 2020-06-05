@@ -8,6 +8,8 @@ using CctvDB;
 using Domain;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using System.Runtime.CompilerServices;
+using System.Security.Claims;
 
 namespace Services.Service
 {

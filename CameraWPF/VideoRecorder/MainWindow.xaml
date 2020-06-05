@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <WrapPanel x:Name="panelImages" HorizontalAlignment="Center">
+            <WrapPanel x:Name="panelImages" HorizontalAlignment="Center" Visibility="Hidden">
             </WrapPanel>
         </Grid>
 

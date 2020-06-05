@@ -45,7 +45,9 @@ namespace CCTVSystem.Client
                 string responseBody = await response.Content.ReadAsStringAsync();
                 var loggedClient = JsonConvert.DeserializeObject<ClientViewModel>(responseBody);
                 MessageBox.Show("Logowanie pomyślne. Witaj " + loggedClient.FirstName +"!");
+                //przekazanie zalogowane uzytkownika do nastepnej klasy
                 MainWindow mw = new MainWindow(loggedClient);
+                password pw = new password(loggedClient);
                 mw.Show();
                 this.Close();
             }
@@ -59,6 +61,5 @@ namespace CCTVSystem.Client
             rw.Show();
             this.Close();
         }
-
     }
 }
