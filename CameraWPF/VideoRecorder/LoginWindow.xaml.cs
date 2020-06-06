@@ -59,5 +59,6 @@ namespace CCTVSystem.Client
             rw.Show();
             this.Close();
         }
+
     }
 }
