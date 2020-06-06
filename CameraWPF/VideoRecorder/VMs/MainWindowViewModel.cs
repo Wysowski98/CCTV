@@ -166,15 +166,17 @@ namespace CCTVSystem.Client.ViewModels
         private List<CameraViewModel> _clientCameras = new List<CameraViewModel>();
         private List<Camera> _cameras = new List<Camera>();
         private WrapPanel _panelImages;
+        private System.Windows.Controls.Image _singleImage;
         private int _viewType = 15;
 
         #endregion
 
         #region Constructor
 
-        public MainWindowViewModel(WrapPanel panelImages, ClientViewModel loggedClient)
+        public MainWindowViewModel(System.Windows.Controls.Image singleImage, WrapPanel panelImages, ClientViewModel loggedClient)
         {
             _loggedClient = loggedClient;
+            _singleImage = singleImage;
 
             for (int i = 0; i < _maxCameras; i++)
             {           
@@ -304,6 +306,14 @@ namespace CCTVSystem.Client.ViewModels
                     {
                         Cameras[i].StopRecording();
                         MessageBox.Show("Recording on camera" + (i+1) + " was stopped!");
+                        break;
+                    }
+                case "SHOW_SINGLE":
+                    {
+                        Binding myBinding = new Binding("Cameras[" + i + "].Image");
+                        _singleImage.Visibility = System.Windows.Visibility.Visible;
+                        _singleImage.SetBinding(System.Windows.Controls.Image.SourceProperty, myBinding);
+                        _panelImages.Visibility = System.Windows.Visibility.Hidden;
                         break;
                     }
                 default:

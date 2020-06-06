@@ -26,10 +26,12 @@
             </Grid.RowDefinitions>
             <WrapPanel x:Name="panelImages" HorizontalAlignment="Center">
             </WrapPanel>
+            <Image x:Name="singleImage" HorizontalAlignment="Center"></Image>
         </Grid>
 
         <Grid Height="434"  Width="130" VerticalAlignment="Center"  HorizontalAlignment="Left"  Background="#FF194A96">
-            <Button x:Name="loadButton" Width="130" FontSize="13" Content="LoadCameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Margin="0,50,0,344" Click="LoadButton_Click"/>
+            <Button x:Name="loadButton" Width="130" FontSize="13" Content="Load Cameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Margin="0,50,0,344" Click="LoadButton_Click"/>
+            <Button x:Name="showAllButton" Width="130" FontSize="13" Content="Show all cameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Margin="0,90,0,304" Click="ShowAllButton_Click"/>
 
             <StackPanel Orientation="Vertical"  VerticalAlignment="Top"  Margin="0,198,0,0">
 

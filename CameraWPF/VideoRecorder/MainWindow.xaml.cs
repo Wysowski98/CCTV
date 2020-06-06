@@ -31,7 +31,8 @@ namespace CCTVSystem.Client
         public MainWindow(ClientViewModel loggedClient)
         {
             InitializeComponent();
-            mv = new MainWindowViewModel(panelImages, loggedClient);
+            singleImage.Visibility = System.Windows.Visibility.Hidden;
+            mv = new MainWindowViewModel(singleImage, panelImages, loggedClient);
             this.DataContext = mv;
         }
 
@@ -43,10 +44,12 @@ namespace CCTVSystem.Client
             UserControl usc = null;
             Cotu.Children.Clear();
             panelImages.Visibility = System.Windows.Visibility.Hidden;
+            singleImage.Visibility = System.Windows.Visibility.Hidden;
             switch (index)
             {
                 case 0:
                     panelImages.Visibility = System.Windows.Visibility.Visible;
+                    singleImage.Visibility = System.Windows.Visibility.Hidden;
                     break;
 
                 case 1:
@@ -79,6 +82,12 @@ namespace CCTVSystem.Client
         private async void LoadButton_Click(object sender, RoutedEventArgs e)
         {
             await mv.getClientCameras();
+        }
+
+        private void ShowAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            panelImages.Visibility = System.Windows.Visibility.Visible;
+            singleImage.Visibility = System.Windows.Visibility.Hidden;
         }
     }
 }

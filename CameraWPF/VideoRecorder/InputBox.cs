@@ -18,6 +18,7 @@ namespace CCTVSystem.Client
         string camerabuttontext = "Turn off the camera";
         string offrecordingfbuttontext = "Turn off the recording";
         string onrecordingbuttontext = "Turn on the recording";
+        string singlebuttontext = "Show single";
 
         bool clicked = false;
         TextBox input = new TextBox();
@@ -26,6 +27,7 @@ namespace CCTVSystem.Client
         Button camera = new Button();
         Button offrec = new Button();
         Button onrec = new Button();
+        Button single = new Button();
         bool inputreset = false;
 
         public InputBox(string content)
@@ -134,6 +136,13 @@ namespace CCTVSystem.Client
             offrec.HorizontalAlignment = HorizontalAlignment.Center;
             sp1.Children.Add(offrec);
 
+            single.Width = 140;
+            single.Height = 30;
+            single.Click += single_Click;
+            single.Content = singlebuttontext;
+            single.HorizontalAlignment = HorizontalAlignment.Center;
+            sp1.Children.Add(single);
+
             cancel.Width = 70;
             cancel.Height = 30;
             cancel.Click += cancel_Click;
@@ -183,6 +192,13 @@ namespace CCTVSystem.Client
             clicked = true;
             Box.Close();
             input.Text = "REC_OFF";
+        }
+
+        void single_Click(object sender, RoutedEventArgs e)
+        {
+            clicked = true;
+            Box.Close();
+            input.Text = "SHOW_SINGLE";
         }
 
         void cameraoff_Click(object sender, RoutedEventArgs e)
