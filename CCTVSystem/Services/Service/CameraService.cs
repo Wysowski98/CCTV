@@ -1,5 +1,4 @@
 ﻿using Services.DTO;
-using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
@@ -7,7 +6,6 @@ using System.Linq;
 using CctvDB;
 using Domain;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
 namespace Services.Service
 {

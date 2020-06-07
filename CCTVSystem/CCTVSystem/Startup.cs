@@ -38,7 +38,7 @@ namespace CCTVSystem
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
