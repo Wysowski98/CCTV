@@ -14,6 +14,8 @@ namespace Domain
 
         public bool IsRecording { get; set; }
 
+        public bool ReadyToDelete { get; set; }
+
         public int Hours { get; set; }
 
         public int Minutes { get; set; }

@@ -9,6 +9,8 @@ namespace Services.Service
     public interface ITransmissionService
     {
         Task AddVideo(TransmissionDTO newVideo);
+
+        Task<bool> CheckIfReady(TransmissionDTO newVideo);
         void DeleteSavedVideos();
     }
 }

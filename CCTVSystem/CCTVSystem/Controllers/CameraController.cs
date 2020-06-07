@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.DTO;
 using Services.Service;
-using NetCamera;
 
 namespace CCTVSystem.Controllers
 {
@@ -18,15 +17,14 @@ namespace CCTVSystem.Controllers
     public class CameraController : ControllerBase
     {
         private readonly ICameraService _service;
-        private List<NetCamera.NetCamera> recCams;
+        private readonly ITransmissionService _transmissionService;
 
         public CameraController(ICameraService service)
         {
             _service = service;
-            recCams = new List<NetCamera.NetCamera>();
         }
 
-        [HttpPost("AddCam")]
+        [HttpGet("AddCam")]
         public async Task<IActionResult> AddCamera([FromBody] CameraRequest req)
         {
             if (!ModelState.IsValid)
@@ -57,26 +55,6 @@ namespace CCTVSystem.Controllers
             }
         }
 
-        [HttpPost("StartRec")]
-        public IActionResult RecordCam([FromBody] CameraRequest req)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest("Invalid data.");
-
-            //var _camera = _service.FindClientCamera(req);
-
-            //if (_camera != null)
-            //{
-                NetCamera.NetCamera nc = new NetCamera.NetCamera(req.Url);
-                //nc.cameraId = _camera.Id;
-                recCams.Add(nc);
-                nc.StartRecording();
-                return Ok();
-           // }
-            //else
-           // {
-            //    return BadRequest("Client camera not found");
-            //}
-        }
+        
     }
 }

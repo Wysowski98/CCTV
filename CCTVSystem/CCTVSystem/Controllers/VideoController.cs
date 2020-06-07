@@ -30,5 +30,15 @@ namespace CCTVSystem.Controllers
 
             return Ok();
         }
+
+
+        [HttpPost("RecReady")]
+        public async Task<IActionResult> CheckIfReadyCam([FromBody] TransmissionDTO newVideo)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+
+            return Ok(await _service.CheckIfReady(newVideo));
+        }
     }
 }

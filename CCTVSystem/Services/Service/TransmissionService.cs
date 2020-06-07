@@ -26,32 +26,23 @@ namespace Services.Service
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> CheckIfReady(TransmissionDTO Video)
+        {
+            var cam = _context.Transmissions.FirstOrDefault(x=>x.Id == Mapper.Map<TransmissionDTO, Transmission>(Video).Id);
+            return cam.ReadyToDelete;
+        }
+
         public void DeleteSavedVideos()
         {
             var range =_context.Transmissions.ToList();
-            _context.Transmissions.RemoveRange(range);
+
+            foreach(var item in range)
+            {
+                item.ReadyToDelete = true;
+            }
+
             _context.SaveChanges();
-            DeleteVideosOnHardDrive();
         }
 
-        private void DeleteVideosOnHardDrive()
-        {
-            try
-            {
-                var rootFolder = @"C:\Users\Maciej\source\repos\SavedVideos";
-                var videoFile = "Video.txt";
-                if (File.Exists(Path.Combine(rootFolder, videoFile)))
-                {
-
-                    File.Delete(Path.Combine(rootFolder, videoFile));
-                    Console.WriteLine("File deleted.");
-                }
-                else Console.WriteLine("File not found");
-            }
-            catch (IOException ioExp)
-            {
-                Console.WriteLine(ioExp.Message);
-            }
-        }
     }
 }

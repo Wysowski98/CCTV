@@ -31,7 +31,6 @@
     <ProjectReference Include="..\CctvDB\CctvDB.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\NetCamera\NetCamera\NetCamera.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
