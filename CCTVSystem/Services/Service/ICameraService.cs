@@ -11,7 +11,7 @@ namespace Services.Service
     {
         Task AddCamera(Camera newCamera);
         Task<List<CameraDTO>> GetClientCameras(Client client);
-
         Client FindClient(String id);
+        Camera FindClientCamera(CameraRequest cr);
     }
 }

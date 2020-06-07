@@ -29,6 +29,12 @@ namespace Services.Service
             return _context.Clients.FirstOrDefault(cli => cli.Id == id);
         }
 
+        public Camera FindClientCamera(CameraRequest cr)
+        {
+            //Client cl = FindClient(cr.clientId);
+            return _context.Cameras.FirstOrDefault(cam => cam.IpAddress == cr.Url);
+        }
+
         public async Task<List<CameraDTO>> GetClientCameras(Client client)
         {
             var cameraList = await _context.Cameras.Where(cam => cam.Client.Id == client.Id).ToListAsync();

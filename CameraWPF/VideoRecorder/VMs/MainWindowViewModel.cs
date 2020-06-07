@@ -298,8 +298,22 @@ namespace CCTVSystem.Client.ViewModels
                     }
                 case "REC_ON":
                     {
-                        Cameras[i].StartRecording();
-                        MessageBox.Show("Recording on camera" + (i+1) + " started!");
+                        var values = new CameraCommand
+                        {
+                            Url = newIp,
+                            ClientId = _loggedClient.Id
+                        };
+                        var myContent = JsonConvert.SerializeObject(values);
+                        var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                        var byteContent = new ByteArrayContent(buffer);
+                        byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                        HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/StartRec", byteContent);
+
+                        if (response.StatusCode != HttpStatusCode.OK)
+                            MessageBox.Show("Bład nagrywania kamery!");
+                        else
+                            MessageBox.Show("Recording on camera" + (i+1) + " started!");
+
                         break;
                     }
                 case "REC_OFF":

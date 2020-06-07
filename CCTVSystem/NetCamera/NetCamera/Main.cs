@@ -1,4 +1,4 @@
-﻿namespace CCTVSystem.NetCamera
+﻿namespace NetCamera
 {
     static class Program
     {

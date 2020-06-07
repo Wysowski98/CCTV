@@ -7,21 +7,17 @@ using AForge.Video;
 using GalaSoft.MvvmLight;
 
 
-namespace CCTVSystem.NetCamera
+namespace NetCamera
 {
-    class NetCamera : ObservableObject, IDisposable
+    public class NetCamera : ObservableObject, IDisposable
     {
         #region Constructor
         public NetCamera()
         {
-            cameraAmount++;
-            cameraId = cameraAmount - 1;
         }
 
         public NetCamera(string url)
         {
-            cameraAmount++;
-            cameraId = cameraAmount - 1;
             cameraUrl = url;
             StartCamera();
         }
@@ -29,8 +25,6 @@ namespace CCTVSystem.NetCamera
 
         #region Private fields
 
-        private static int cameraAmount = 0;
-        private int cameraId;
         private BitmapImage image;
         private VideoFileWriter writer;
         private bool recording;
@@ -94,6 +88,8 @@ namespace CCTVSystem.NetCamera
             }
 
         }
+
+        public int cameraId;
 
         public void StopCamera()
         {
