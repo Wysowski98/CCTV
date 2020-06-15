@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="CCTVSystem.Client.DeleteRecords"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CCTVSystem.Client"
+       mc:Ignorable="d"
+      Height="384" Width="570" >
+
+
+    <Grid Background="#FFE0E5EB" Height="384" VerticalAlignment="Bottom">
+
+        <ListView Name ="RecordHistory"
+          VerticalContentAlignment="Top" >
+
+            <ListView.View>
+                <GridView AllowsColumnReorder="true"
+                ColumnHeaderToolTip="Records Removing">
+                    <GridViewColumn  
+                      Header="" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="checkbox1"   Margin="5, 0" IsChecked="{Binding IsSelected}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Filename}" 
+                      Header="File Name" Width="140"/>
+
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=RecordingDate}" 
+                      Header="Record Data" Width="140">
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Hours}" 
+                      Header="Record Hours" Width="125"/>
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Minutes}" 
+                      Header="Record Minutes" Width="125"/>
+
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Camera}" 
+                      Header="Camera ID" Width="120"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Height="25" VerticalAlignment="Bottom" Margin="0,0,0,5">
+            <Button Width="100" Content="DELETE" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Height="50" Background="#FF8AC3F1" BorderBrush="{x:Null}" Foreground="#FF28689C" Click="Button_Click" Margin="0,-38,0,0" />
+        </Grid>
+
+    </Grid>
+</UserControl>
