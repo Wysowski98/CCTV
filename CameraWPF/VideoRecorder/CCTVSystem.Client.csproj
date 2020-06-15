@@ -136,6 +136,7 @@
     <Compile Include="VMs\ClientViewModel.cs" />
     <Compile Include="VMs\CameraCommand.cs" />
     <Compile Include="VMs\GetUsersss.cs" />
+    <Compile Include="VMs\HistoryCommand.cs" />
     <Compile Include="VMs\LoginCommand.cs" />
     <Compile Include="VMs\RegisterCommand.cs" />
     <Page Include="DeleteRecord.xaml">

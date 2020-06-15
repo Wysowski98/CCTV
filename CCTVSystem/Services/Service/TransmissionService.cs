@@ -69,7 +69,7 @@ namespace Services.Service
         }
 
         public async Task<List<TransmissionDTO>> GetTrans() {
-            var transList = await _context.Transmissions.ToListAsync();
+            var transList = await _context.Transmissions.Include(x=>x.Camera).ToListAsync();
             var transListDto = Mapper.Map<List<Transmission>, List<TransmissionDTO>>(transList);
             return transListDto;
         }

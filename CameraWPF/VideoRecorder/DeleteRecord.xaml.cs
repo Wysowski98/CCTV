@@ -30,6 +30,7 @@ namespace CCTVSystem.Client
             public string Data { get; set; }
             public int Length { get; set; }
             public int Id { get; set; }
+           
         }
 
         public DeleteRecords()
