@@ -113,12 +113,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="VMs\ChangePasswordCommand.cs" />
     <Compile Include="DeleteRecord.xaml.cs">
       <DependentUpon>DeleteRecord.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeleteUsers.xaml.cs">
       <DependentUpon>DeleteUsers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VMs\GetUserProfileCommand.cs" />
     <Compile Include="History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
     </Compile>

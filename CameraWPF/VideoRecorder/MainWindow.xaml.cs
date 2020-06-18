@@ -22,6 +22,7 @@ namespace CCTVSystem.Client
     public partial class MainWindow : Window
     {
         private MainWindowViewModel mv;
+        private ClientViewModel _loggedUser;
 
         public MainWindow()
         {
@@ -34,6 +35,7 @@ namespace CCTVSystem.Client
             singleImage.Visibility = System.Windows.Visibility.Hidden;
             mv = new MainWindowViewModel(singleImage, panelImages, loggedClient);
             this.DataContext = mv;
+            _loggedUser = loggedClient;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -68,12 +70,12 @@ namespace CCTVSystem.Client
                     break;
 
                 case 4:
-                    usc = new password();
+                    usc = new password(_loggedUser);
                     Cotu.Children.Add(usc);
                     break;
 
                case 5:
-                    usc = new InfoPage();
+                    usc = new InfoPage(_loggedUser);
                     Cotu.Children.Add(usc);
                     break;
             }

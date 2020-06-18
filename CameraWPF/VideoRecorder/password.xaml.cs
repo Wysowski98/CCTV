@@ -1,5 +1,10 @@
-﻿using System;
+﻿using CCTVSystem.Client.ViewModels;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +13,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CCTVSystem.Client
@@ -18,43 +22,70 @@ namespace CCTVSystem.Client
     /// </summary>
     public partial class password : UserControl
     {
-        public class ACCOUNT
-        {
-            public int oldp { get; set; }
-            public string new2p { get; set; }
-            public bool new3p { get; set; }
-        }
-        public System.Security.SecureString SecurePassword { get; }
 
+        static HttpClient client = new HttpClient();
+        public System.Security.SecureString SecurePassword { get; }
+        private ClientViewModel _loggedUser;
 
         public password()
         {
             InitializeComponent();
-
         }
 
-        
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public password(ClientViewModel loggedUser)
         {
+            InitializeComponent();
+            _loggedUser = loggedUser;
+        }
 
+        public Window ParentControl { get; set; }
 
-            //polaczyc z tym od dawida zeby zmienic haslo z obecnego juz z  ClientViewModel
-            if (new2.Password != new3.Password)
-                    MessageBox.Show("Hasła nie są identyczne.");
-                else if (old.Password == new3.Password)
-                    MessageBox.Show("Nowe hasło nie różni się od starego");
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Jezeli wszystkie pola sa wypelnione
 
-                else if (old.Password == new2.Password)
-                    MessageBox.Show("Nowe hasło nie różni się od starego");
-                else if (new3.SecurePassword.Length < 5)
-                    MessageBox.Show("Za krotkie hasło");
+            if (!String.IsNullOrWhiteSpace(new2.Password) && !String.IsNullOrWhiteSpace(new3.Password) && !String.IsNullOrWhiteSpace(old.Password))
+            {
+                //Jezeli są takie same
+                if (new2.Password == new3.Password)
+                {
+                    //przypisanie zmiennych do wyslania serwerowi
+                    var values = new ChangePasswordCommand
+                    {
+                        id = this._loggedUser.Id,
+                        oldPassword = this.old.Password,
+                        newPassword1 = this.new2.Password,
+                        newPassword2 = this.new3.Password
+                    };
+                    //proces wysylania żądania do serwera
+                    var myContent = JsonConvert.SerializeObject(values);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                    var byteContent = new ByteArrayContent(buffer);
+                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    var response = await client.PostAsync("https://localhost:44309/api/Client/ChangePassword", byteContent);
+                    //jezeli serwer wyslal pozytywna odpowiedz
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show("Pomyślna zmiana hasła");
+                        this.new2.Clear();
+                        this.new3.Clear();
+                        this.old.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nowe haslo nie spelnia wymagan");
+                    }
+                }
                 else
                 {
-                    MessageBox.Show("Zmieniono hasło");
-
+                    MessageBox.Show("Podane hasła różnią się, wprowadź identyczne");
                 }
-
+            }//Jezeli nie zostaly wypelnione
+            else
+            {
+                MessageBox.Show("Wypełnij wszystkie pola");
+            }
         }
-
     }
 }

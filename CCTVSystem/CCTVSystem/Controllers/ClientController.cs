@@ -82,5 +82,45 @@ namespace CCTVSystem.Controllers
 
             return BadRequest("Failed to register.");
         }
+
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
+        {
+            var validators = _userManager.PasswordValidators;
+            foreach (var validator in validators)
+            {
+                //validator sprawdza czy nowe haslo spelnia wymagania
+                var check = await validator.ValidateAsync(_userManager, null, request.newPassword2);
+                if (!check.Succeeded)
+                {
+                    return BadRequest("Nowe haslo nie spelnia wymagan");
+                }
+                //szuka uzytkownika po przekazanym id
+                var user = await _userManager.FindByIdAsync(request.id);
+                //zmiana hasla
+                var result = await _userManager.ChangePasswordAsync(user, request.oldPassword, request.newPassword2);
+                if (result.Succeeded)
+                {
+                    return Ok("Pomyślnie zmieniono hasło");
+                }
+            }
+            return BadRequest("Nie udało się zmienić hasła");
+        }
+
+        [HttpPost("GetUserProfile")]
+        public async Task<IActionResult> GetUserProfile(GetUserProfileRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(request.id);
+            var username = await _userManager.GetUserNameAsync(user);
+            var email = await _userManager.GetEmailAsync(user);
+            var role = await _userManager.GetRolesAsync(user);
+            var userProfile = new UserProfile
+            {
+                Username = username,
+                Email = email,
+                Role = role
+            };
+            return Ok(userProfile);
+        }
     }
 }
