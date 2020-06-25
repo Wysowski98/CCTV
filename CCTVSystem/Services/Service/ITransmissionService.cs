@@ -12,5 +12,7 @@ namespace Services.Service
 
         Task<bool> CheckIfReady(TransmissionDTO newVideo);
         void DeleteSavedVideos();
+
+        Task<List<TransmissionDTO>> GetTrans();
     }
 }

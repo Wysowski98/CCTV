@@ -62,7 +62,13 @@ namespace CCTVSystem.Client
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            foreach(CheckBox cb in RecordHistory.Items)
+            {
+                if(cb.IsChecked == true)
+                {
+                    MessageBox.Show("No tak");
+                }
+            }
         }
     }
 }
