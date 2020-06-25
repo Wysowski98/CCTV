@@ -28,9 +28,10 @@ namespace CCTVSystem.Client
         {
             public bool? IsChecked { get; set; }
             public string FileName { get; set; }
-            public string Data { get; set; }
-            public int Length { get; set; }
-            public int Id { get; set; }
+            public string RecordingDate { get; set; }
+            public int Hours { get; set; }
+            public int Minutes { get; set; }
+            public string Camera { get; set; }
         }
 
         public DeleteRecords()
@@ -48,24 +49,27 @@ namespace CCTVSystem.Client
             {
                 string resp = await response.Content.ReadAsStringAsync();
                 _trans = JsonConvert.DeserializeObject<List<GetTransCommand>>(resp);
-
             }
 
-            if (_trans != null)
+            foreach(GetTransCommand gtc in _trans)
             {
-                for (int i = 0; i < _trans.Count; i++)
-                {                   
-                    RecordHistory.Items.Add(_trans[i]);
-                }
-            }
-
+                Recorded r = new Recorded();
+                r.IsChecked = false;
+                r.FileName = gtc.Filename;
+                r.Hours = gtc.Hours;
+                r.Minutes = gtc.Minutes;
+                r.RecordingDate = gtc.RecordingDate.ToString();
+                //tu trzeba poprawić/zmienić
+                r.Camera = gtc.Camera.CameraUrl;
+                RecordHistory.Items.Add(r);
+            }        
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach(CheckBox cb in RecordHistory.Items)
+            foreach(Recorded r in RecordHistory.Items)
             {
-                if(cb.IsChecked == true)
+                if(r.IsChecked == true)
                 {
                     MessageBox.Show("No tak");
                 }
