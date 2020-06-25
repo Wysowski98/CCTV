@@ -20,26 +20,29 @@
                       Header="" Width="40">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Margin="5, 0" IsChecked="{Binding IsSelected}"/>
+                                <CheckBox Name="checkbox1"   Margin="5, 0" IsChecked="{Binding IsSelected}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
                     <GridViewColumn DisplayMemberBinding=
-                          "{Binding Path=FileName}" 
+                          "{Binding Path=Filename}" 
                       Header="File Name" Width="140"/>
 
                     <GridViewColumn DisplayMemberBinding=
-                          "{Binding Path=Data}" 
+                          "{Binding Path=RecordingDate}" 
                       Header="Record Data" Width="140">
                     </GridViewColumn>
 
                     <GridViewColumn DisplayMemberBinding=
-                          "{Binding Path=Length}" 
-                      Header="Record Length" Width="125"/>
+                          "{Binding Path=Hours}" 
+                      Header="Record Hours" Width="125"/>
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=Minutes}" 
+                      Header="Record Minutes" Width="125"/>
 
                     <GridViewColumn DisplayMemberBinding=
-                          "{Binding Path=Id}" 
+                          "{Binding Path=Camera}" 
                       Header="Camera ID" Width="120"/>
                 </GridView>
             </ListView.View>

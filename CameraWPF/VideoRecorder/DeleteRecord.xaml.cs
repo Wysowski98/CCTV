@@ -23,6 +23,7 @@ namespace CCTVSystem.Client
     {
         static HttpClient client = new HttpClient();
         private List<GetTransCommand> _trans;
+
         public class Recorded
         {
             public bool? IsChecked { get; set; }
@@ -53,7 +54,7 @@ namespace CCTVSystem.Client
             if (_trans != null)
             {
                 for (int i = 0; i < _trans.Count; i++)
-                {
+                {                   
                     RecordHistory.Items.Add(_trans[i]);
                 }
             }
