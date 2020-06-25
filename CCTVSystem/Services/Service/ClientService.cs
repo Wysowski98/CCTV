@@ -22,6 +22,18 @@ namespace Services.Service
             _context = context;
         }
 
+        public int GetClientTransmission(string id)
+        {
+            var client =  _context.Clients.Include(c => c.Transmission).First(c => c.Id == id);
+
+            if (client.Transmission != null)
+            {
+                return client.Transmission.Id;
+            }
+            else
+                return 0;
+        }
+
         public async Task<List<ClientDTO>> GetClients()
         {
             var clientList = await _context.Clients.ToListAsync();

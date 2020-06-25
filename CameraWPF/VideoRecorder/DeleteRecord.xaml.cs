@@ -51,18 +51,20 @@ namespace CCTVSystem.Client
                 _trans = JsonConvert.DeserializeObject<List<GetTransCommand>>(resp);
             }
 
-            foreach(GetTransCommand gtc in _trans)
+            if (_trans != null)
             {
-                Recorded r = new Recorded();
-                r.IsChecked = false;
-                r.FileName = gtc.Filename;
-                r.Hours = gtc.Hours;
-                r.Minutes = gtc.Minutes;
-                r.RecordingDate = gtc.RecordingDate.ToString();
-                //tu trzeba poprawić/zmienić
-                r.Camera = gtc.CameraId.ToString();
-                RecordHistory.Items.Add(r);
-            }        
+                foreach (GetTransCommand gtc in _trans)
+                {
+                    Recorded r = new Recorded();
+                    r.IsChecked = false;
+                    r.FileName = gtc.Filename;
+                    r.Hours = gtc.Hours;
+                    r.Minutes = gtc.Minutes;
+                    r.RecordingDate = gtc.RecordingDate.ToString();
+                    r.Camera = gtc.CameraId.ToString();
+                    RecordHistory.Items.Add(r);
+                }
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

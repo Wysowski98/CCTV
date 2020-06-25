@@ -114,11 +114,14 @@ namespace CCTVSystem.Controllers
             var username = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var role = await _userManager.GetRolesAsync(user);
+            var trId = _service.GetClientTransmission(request.id);
+
             var userProfile = new UserProfile
             {
                 Username = username,
                 Email = email,
-                Role = role
+                Role = role,
+                TransmissionId = trId
             };
             return Ok(userProfile);
         }

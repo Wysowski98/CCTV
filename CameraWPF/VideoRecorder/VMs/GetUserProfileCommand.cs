@@ -11,6 +11,7 @@ namespace CCTVSystem.Client.ViewModels
         public string Username { get; set; }
         public string Email { get; set; }
         public IList<string> Roles { get; set; }
+        public int TransmissionId { get; set; }
     }
 
     class UserId

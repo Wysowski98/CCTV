@@ -1,4 +1,5 @@
-﻿using Services.DTO;
+﻿using Domain;
+using Services.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace Services.Service
     public interface IClientService
     {
         Task<List<ClientDTO>> GetClients();
+
+        int GetClientTransmission(string id);
 
     }
 }

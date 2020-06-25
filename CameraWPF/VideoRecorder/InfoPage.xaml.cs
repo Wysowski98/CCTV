@@ -31,36 +31,9 @@ namespace CCTVSystem.Client
         {
             InitializeComponent();
             _loggedUser = loggedUser;
-            getClientCameras();
             getUserProfile();
-
         }
-        private async void getClientCameras()
-        {
-            //Uzyskanie id kamer uzytkownika
-            var myContent = JsonConvert.SerializeObject(_loggedUser);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/GetCams", byteContent);
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                string responseBody = await response.Content.ReadAsStringAsync();
-                _clientCameras = JsonConvert.DeserializeObject<List<CameraViewModel>>(responseBody);
-            }
-            else
-                MessageBox.Show("Bład uzyskiwania kamer użytkownika!");
-            for (int i = 0; i < _clientCameras.Count; i++)
-            {
-                if (_clientCameras != null)
-                {
-                    id1.Items.Add(_clientCameras[i].Id);
-                }
-                else
-                    break;
-            }
-        }
+       
 
         private async void getUserProfile()
         {
@@ -84,6 +57,7 @@ namespace CCTVSystem.Client
             username1.Text = _profile.Username;
             email1.Text = _profile.Email;
             role1.Items.Add(_profile.Roles);
+            id1.Items.Add(_profile.TransmissionId);
         }
     }
 }
