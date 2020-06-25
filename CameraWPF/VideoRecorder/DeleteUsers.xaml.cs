@@ -1,5 +1,10 @@
-﻿using System;
+﻿using CCTVSystem.Client.ViewModels;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +23,8 @@ namespace CCTVSystem
     /// </summary>
     public partial class DeleteUsers : UserControl
     {
+        static HttpClient client = new HttpClient();
+        private List<GetUserProfileCommand> _users;
         public class Users
         {
             public bool IsSelected { get; set; }
@@ -29,25 +36,31 @@ namespace CCTVSystem
         public DeleteUsers()
         {
             InitializeComponent();
-            List<Users> items = new List<Users>();
-            items.Add(new Users() { IsSelected = true, UserName = "rad", Email = "hyuj@op.pl", Role="User"});
-            items.Add(new Users() { IsSelected = true, UserName = "an", Email = "edfwe@op.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = false, UserName = "dom", Email = "ede@o2.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = true, UserName = "dor", Email = "ds@gmail.com", Role = "User" });
-            items.Add(new Users() { IsSelected = false, UserName = "da", Email = "cfdsad@dom.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = true, UserName = "ma", Email = "edsde@o2.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = false, UserName = "ds", Email = "edewde@o2.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = true, UserName = "sda", Email = "ededfds@o2.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = false, UserName = "sdsafdferferferferfrefddsafdssfdfsddfs", Email = "eaaade@o2.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = true, UserName = "dfsf", Email = "efdsfsdde@o2.pl", Role = "User" });
-            items.Add(new Users() { IsSelected = false, UserName = "dfsf", Email = "de@o2.pl", Role = "User" });
-
-
-
-
-            UsersList.ItemsSource = items;
+            getUsers();
         }
- 
+
+        private async void getUsers()
+        {
+
+            var response = await client.GetAsync("https://localhost:44309/api/Client/getUsers");
+            //jezeli serwer wyslal pozytywna odpowiedz
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                string responseBody = await response.Content.ReadAsStringAsync();
+                _users = JsonConvert.DeserializeObject<List<GetUserProfileCommand>>(responseBody);
+
+            }
+
+            for (int i = 0; i < _users.Count; i++)
+            {
+
+                UsersList.Items.Add(_users[i]);
+            }
+
+
+
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 

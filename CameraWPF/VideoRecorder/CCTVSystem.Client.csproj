@@ -120,6 +120,7 @@
     <Compile Include="DeleteUsers.xaml.cs">
       <DependentUpon>DeleteUsers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VMs\GetTransCommand.cs" />
     <Compile Include="VMs\GetUserProfileCommand.cs" />
     <Compile Include="History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
@@ -149,6 +150,8 @@
     <Compile Include="VMs\CameraViewModel.cs" />
     <Compile Include="VMs\ClientViewModel.cs" />
     <Compile Include="VMs\CameraCommand.cs" />
+    <Compile Include="VMs\GetUsersss.cs" />
+    <Compile Include="VMs\HistoryCommand.cs" />
     <Compile Include="VMs\LoginCommand.cs" />
     <Compile Include="VMs\RegisterCommand.cs" />
     <Page Include="DeleteRecord.xaml">
