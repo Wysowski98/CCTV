@@ -5,39 +5,79 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CCTVSystem.Client"
       mc:Ignorable="d"
-      Height="384" Width="570" >
+      Height="300" Width="600" >
 
-
-
-
-    <Grid Background="#FFE0E5EB">
-        <Grid Height="192" VerticalAlignment="Center">
-            <TextBlock   Text="Enter the width"
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                FontSize="20"              
-                FontWeight="Bold"
-                FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="70,50,0,0">
-            </TextBlock>
-
-            <TextBlock   Text="Enter the height"
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Bottom" 
-                FontSize="20"
-                FontWeight="Bold"
-                FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="70,50,70,50">
-            </TextBlock>
-
-            <TextBox Name="textbox2" Width="150" Height="30"  HorizontalAlignment="Right" KeyDown="KeyDown_textbox2"
-                VerticalAlignment="Bottom" Margin="70,50,80,50"  FontSize="15" ></TextBox>
-            <TextBox Name="textbox1" Width="150" Height="30"  HorizontalAlignment="Right" 
-                VerticalAlignment="Top" Margin="80,50,80,50" FontSize="15"  KeyDown="KeyDown_textbox1"></TextBox>
-        </Grid>
-
-        <Grid Height="50" VerticalAlignment="Bottom" Margin="0,0,0,30">
-            <Button Width="150" Content="OK" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Height="50" Background="#FF8AC3F1" BorderBrush="{x:Null}" Foreground="#FF28689C" Click="Button_Click" />
-        </Grid>
-
-    </Grid>
+    <Viewbox
+    Stretch="Fill">
+        <StackPanel>
+            <Grid Height="192">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="2">
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Azure"/>
+                            <GradientStop Color="Azure"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                
+                <TextBlock Text="Enter the width:"
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Top" 
+                           FontSize="20"              
+                           FontWeight="Regular"
+                           FontFamily="Segoe UI"
+                           Foreground="#FF5073A6"
+                           Margin="10, 50, 0, 0"
+                           Grid.Column="0">
+                </TextBlock>
+                <TextBlock Text="Enter the height:"
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Bottom" 
+                           FontSize="20"
+                           FontWeight="Regular"
+                           FontFamily="Segoe UI"
+                           Foreground="#FF5073A6"
+                           Margin="10, 50, 10, 50"
+                           Grid.Column="0">
+                </TextBlock>
+                <TextBox Name="textbox2"
+                         Width="150"
+                         Height="30"
+                         HorizontalAlignment="Right"
+                         KeyDown="KeyDown_textbox2"
+                         VerticalAlignment="Bottom"
+                         Margin="0, 50, 10, 50"
+                         FontSize="15"
+                         Grid.Column="1"></TextBox>
+                <TextBox Name="textbox1"
+                         Width="150"
+                         Height="30"
+                         HorizontalAlignment="Right" 
+                         VerticalAlignment="Top"
+                         Margin="0, 50, 10, 50"
+                         FontSize="15"
+                         KeyDown="KeyDown_textbox1"
+                         Grid.Column="1"></TextBox>
+                <Button Content="OK"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        FontWeight="Bold"
+                        FontSize="20"
+                        Height="30"
+                        Width="100"
+                        Margin="0, 0, 0, 10"
+                        Background="#FF8AC3F1"
+                        BorderBrush="{x:Null}"
+                        Foreground="#FF28689C"
+                        Click="Button_Click"
+                        Grid.ColumnSpan="2"/>
+            </Grid>
+        </StackPanel>
+    </Viewbox>
+   
 
 </UserControl>

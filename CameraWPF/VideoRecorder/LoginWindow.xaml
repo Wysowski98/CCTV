@@ -5,82 +5,100 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CCTVSystem.Client"
         mc:Ignorable="d"
-        Title="Login" Height="330" Width="560">
-    <Grid>
-        <Border>
-            <Border.Background>
-                <LinearGradientBrush>
-                    <GradientStop Color="Azure"/>
-                    <GradientStop Color="Azure"/>
-                </LinearGradientBrush>
-            </Border.Background>
+        Title="Login"
+        Height="330"
+        Width="460"
+        MaxHeight="660"
+        MaxWidth="920">
+    
+    <Viewbox
+        Stretch="Fill">
+        <StackPanel>
+            <Grid>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Border Grid.ColumnSpan="2">
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Azure"/>
+                            <GradientStop Color="Azure"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                
+                <Label x:Name="label1" Content="You don't have an account? " Margin="0,249,83,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="160" Grid.ColumnSpan="2"/>
+                <Label x:Name="registerLabel" Content="Sign up " Margin="0,248,28,0" Foreground="#FF3F14FF" FontSize="13" FontWeight="Normal" FontStyle="Italic" MouseDoubleClick="registerLabel_MouseDoubleClick" Height="35" VerticalAlignment="Top" RenderTransformOrigin="0.781,0.458" HorizontalAlignment="Right" Width="64" Grid.Column="1"/>
 
-
-        </Border>
-        <Label x:Name="label1" Content="You don't have an account? " Margin="0,249,83,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="160"/>
-        <Label x:Name="registerLabel" Content="Sign up " Margin="0,248,28,0" Foreground="#FF3F14FF" FontSize="13" FontWeight="Normal" FontStyle="Italic" MouseDoubleClick="registerLabel_MouseDoubleClick" Height="35" VerticalAlignment="Top" RenderTransformOrigin="0.781,0.458" HorizontalAlignment="Right" Width="64"/>
-
-
-        <TextBlock HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Margin="0, 10, 0, 0"
-                   Opacity="0.75"
-                   Text="Login"
-                   FontFamily="Helvetica"
-                   FontWeight="Heavy"
-                   FontSize="42"/>
-        <TextBlock HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Margin="10, 80, 0, 0"
-                   Height="40"
-                   Width="200"
-                   Opacity="0.9"
-                   Text="Username:"
-                   FontFamily="Helvetica"
-                   FontSize="30"/>
-        <TextBox Name="username"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Top"
-                 Height="40"
-                 Width="240"
-                 Margin="0, 80, 0, 0"
-                 Opacity="0.75"
-                 FontFamily="Helvetica"
-                 FontSize="30"
-                 HorizontalContentAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Margin="10, 140, 0, 0"
-                   Height="40"
-                   Width="200"
-                   Opacity="0.9"
-                   Text="Password:"
-                   FontFamily="Helvetica"
-                   FontSize="30"/>
-        <PasswordBox Name="password"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Top"
-                 Height="40"
-                 Width="240"
-                 Margin="0, 140, 0, 0"
-                 Opacity="0.75"
-                 FontFamily="Helvetica"
-                 FontSize="30"
-                 HorizontalContentAlignment="Center"/>
-        <Button HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Height="40"
-                Width="160"
-                Margin="0, 200, 0, 0"
-                Background="CornflowerBlue"
-                Opacity="0.9"
-                Click="Button_Click">
-            <TextBlock
-                Text="Log in"
-                FontFamily="Helvetica"
-                FontSize="30"
-                FontWeight="Bold">
-            </TextBlock>
-        </Button>
-    </Grid>
+                <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Margin="117,10,117,0"
+                       Opacity="0.75"
+                       Text="Login"
+                       FontFamily="Helvetica"
+                       FontWeight="Heavy"
+                       FontSize="42" Grid.ColumnSpan="2"/>
+                <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10,80,0,0"
+                       Height="40"
+                       Width="150"
+                       Opacity="0.9"
+                       Text="Username:"
+                       FontFamily="Helvetica"
+                       FontSize="30" Grid.ColumnSpan="2"/>
+                <TextBox Name="username"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"
+                     Height="40"
+                     Width="180"
+                     Margin="0,80,10,0"
+                     Opacity="0.75"
+                     FontFamily="Helvetica"
+                     FontSize="30"
+                     HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="10, 140, 0, 0"
+                       Height="40"
+                       Width="150"
+                       Opacity="0.9"
+                       Text="Password:"
+                       FontFamily="Helvetica"
+                       FontSize="30"
+                       Grid.ColumnSpan="1"
+                       Grid.Column="0"/>
+                <PasswordBox Name="password"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"
+                     Height="40"
+                     Width="180"
+                     Margin="0, 140, 10, 0"
+                     Opacity="0.75"
+                     FontFamily="Helvetica"
+                     FontSize="30"
+                     HorizontalContentAlignment="Center"
+                     Grid.ColumnSpan="1"
+                     Grid.Column="1"/>
+                <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="40"
+                    Width="160"
+                    Margin="95,200,95,0"
+                    Background="CornflowerBlue"
+                    Opacity="0.9"
+                    Click="Button_Click" Grid.ColumnSpan="2">
+                    <TextBlock
+                    Text="Log in"
+                    FontFamily="Helvetica"
+                    FontSize="30"
+                    FontWeight="Bold">
+                    </TextBlock>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Viewbox>
 </Window>

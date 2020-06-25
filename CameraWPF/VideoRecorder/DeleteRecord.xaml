@@ -7,49 +7,53 @@
        mc:Ignorable="d"
       Height="384" Width="570" >
 
+    <Viewbox
+    Stretch="Fill">
+        <StackPanel>
+            <Grid Background="#FFE0E5EB" Height="384" VerticalAlignment="Bottom">
 
-    <Grid Background="#FFE0E5EB" Height="384" VerticalAlignment="Bottom">
-
-        <ListView Name ="RecordHistory"
+                <ListView Name ="RecordHistory"
           VerticalContentAlignment="Top" >
 
-            <ListView.View>
-                <GridView AllowsColumnReorder="true"
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="true"
                 ColumnHeaderToolTip="Records Removing">
-                    <GridViewColumn  
+                            <GridViewColumn  
                       Header="" Width="40">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox Name="checkbox1"   Margin="5, 0" IsChecked="{Binding IsChecked}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Name="checkbox1"   Margin="5, 0" IsChecked="{Binding IsChecked}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=FileName}" 
                       Header="File Name" Width="140"/>
 
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=RecordingDate}" 
                       Header="Record Data" Width="140">
-                    </GridViewColumn>
+                            </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=Hours}" 
                       Header="Record Hours" Width="125"/>
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=Minutes}" 
                       Header="Record Minutes" Width="125"/>
 
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=Camera}" 
                       Header="Camera ID" Width="120"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Grid Height="25" VerticalAlignment="Bottom" Margin="0,0,0,5">
-            <Button Width="100" Content="DELETE" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Height="50" Background="#FF8AC3F1" BorderBrush="{x:Null}" Foreground="#FF28689C" Click="Button_Click" Margin="0,-38,0,0" />
-        </Grid>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Grid Height="25" VerticalAlignment="Bottom" Margin="0,0,0,5">
+                    <Button Width="100" Content="DELETE" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Height="50" Background="#FF8AC3F1" BorderBrush="{x:Null}" Foreground="#FF28689C" Click="Button_Click" Margin="0,-38,0,0" />
+                </Grid>
 
-    </Grid>
+            </Grid>
+        </StackPanel>
+    </Viewbox>
 </UserControl>

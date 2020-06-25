@@ -7,31 +7,35 @@
        mc:Ignorable="d"
       Height="384" Width="570" >
 
+    <Viewbox
+    Stretch="Fill">
+        <StackPanel>
+            <Grid Background="#FFE0E5EB" Height="384" VerticalAlignment="Bottom">
 
-    <Grid Background="#FFE0E5EB" Height="384" VerticalAlignment="Bottom">
-
-        <ListView Name ="Watched" ItemsSource="{Binding Path=RecordsHistory}"  
+                <ListView Name ="Watched" ItemsSource="{Binding Path=RecordsHistory}"  
           VerticalContentAlignment="Top" >
 
-            <ListView.View>
-                <GridView AllowsColumnReorder="true"
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="true"
                 ColumnHeaderToolTip="Records Removing">
 
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=CameraId}" 
                       Header="Camera ID" Width="190"/>
 
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=RecordingDate}" 
                       Header="Data" Width="190">
-                    </GridViewColumn>
+                            </GridViewColumn>
 
-                    <GridViewColumn DisplayMemberBinding=
+                            <GridViewColumn DisplayMemberBinding=
                           "{Binding Path=IsRecording}" 
                       Header="Recorded" Width="190"/>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
-    </Grid>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </StackPanel>
+    </Viewbox>
 </UserControl>
