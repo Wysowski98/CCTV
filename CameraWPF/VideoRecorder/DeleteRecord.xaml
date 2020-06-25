@@ -20,7 +20,7 @@
                       Header="" Width="40">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Name="checkbox1"   Margin="5, 0" IsChecked="{Binding IsSelected}"/>
+                                <CheckBox Name="checkbox1"   Margin="5, 0" IsChecked="{Binding IsChecked}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
