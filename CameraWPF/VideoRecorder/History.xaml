@@ -18,7 +18,7 @@
                 ColumnHeaderToolTip="Records Removing">
 
                     <GridViewColumn DisplayMemberBinding=
-                          "{Binding Path=Camera}" 
+                          "{Binding Path=CameraId}" 
                       Header="Camera ID" Width="190"/>
 
                     <GridViewColumn DisplayMemberBinding=

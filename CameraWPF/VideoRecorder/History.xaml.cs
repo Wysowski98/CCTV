@@ -25,7 +25,7 @@ namespace CCTVSystem.Client
 
         private class watchingHistory
         {
-            public Camera Camera { get; set; }
+            public int CameraId { get; set; }
 
             public DateTime RecordingDate { get; set; }
 
@@ -51,9 +51,7 @@ namespace CCTVSystem.Client
                 {
                     Watched.Items.Add(_trans[i]);
                 }
-
             }
-
         }
     }
 }

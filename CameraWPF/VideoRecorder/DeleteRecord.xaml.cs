@@ -60,7 +60,7 @@ namespace CCTVSystem.Client
                 r.Minutes = gtc.Minutes;
                 r.RecordingDate = gtc.RecordingDate.ToString();
                 //tu trzeba poprawić/zmienić
-                r.Camera = gtc.Camera.CameraUrl;
+                r.Camera = gtc.CameraId.ToString();
                 RecordHistory.Items.Add(r);
             }        
         }

@@ -11,13 +11,8 @@ namespace CCTVSystem.Client.ViewModels
         public string Filename { get; set; }
         public DateTime RecordingDate { get; set; }
         public int Hours { get; set; }
-
         public int Minutes { get; set; }
-        public Camera Camera { get; set; }
+        public int CameraId { get; set; }
 
     }
-   // class CamId
-   // {
-    //    public string id { get; set; }
-   // }
 }

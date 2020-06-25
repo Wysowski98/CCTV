@@ -9,11 +9,10 @@ namespace VideoRecorder.VMs
 {
     class HistoryCommand
     {
-        public Camera Camera { get; set; }
-
         public DateTime RecordingDate { get; set; }
 
         public bool IsRecording { get; set; }
 
+        public int CameraId { get; set; }
     }
 }

@@ -30,7 +30,21 @@ namespace CCTVSystem.Controllers
             var classes = await _tr.GetTrans();
             if (classes.Any())
             {
-                return Ok(classes);
+                List<TransmissionResponse> trList = new List<TransmissionResponse>();
+                foreach(TransmissionDTO tDTO in classes)
+                {
+                    TransmissionResponse tr = new TransmissionResponse();
+                    tr.Id = tDTO.Id;
+                    tr.IsRecording = tDTO.IsRecording;
+                    tr.Hours = tDTO.Hours;
+                    tr.Minutes = tDTO.Minutes;
+                    tr.ReadyToDelete = tDTO.ReadyToDelete;
+                    tr.RecordingDate = tDTO.RecordingDate;
+                    tr.FileName = tDTO.FileName;
+                    tr.CameraId = tDTO.Camera.Id;
+                    trList.Add(tr);
+                }
+                return Ok(trList);
             }
             else
             {
