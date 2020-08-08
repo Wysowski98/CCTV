@@ -17,10 +17,12 @@ namespace CCTVSystem.Controllers
     public class TransController : ControllerBase
     {
         private readonly ITransmissionService _tr;
+        private readonly ICameraService _cs;
 
-        public TransController(ITransmissionService service)
+        public TransController(ITransmissionService service, ICameraService cameraService)
         {
             _tr = service;
+            _cs = cameraService;
         }
 
 
@@ -49,6 +51,26 @@ namespace CCTVSystem.Controllers
             else
             {
                 return NotFound();
+            }
+        }
+
+        //Not working yet ( ! Cannot insert explicit value for identity column in table 'Cameras' when IDENTITY_INSERT is set to OFF. ! )
+        [HttpPost("addTranss")]
+        public async Task<IActionResult> addTranss([FromBody] TransmissionRequest trq)
+        {
+            TransmissionDTO tDTO = new TransmissionDTO();
+            var cam = _cs.FindClientCamera(trq.CamRequest);
+            
+            tDTO.Camera = Mapper.Map<Camera, CameraDTO>(cam);
+            if (tDTO.Camera == null)
+                return BadRequest("Błędne dane dotyczące kamery!");
+            else
+            {
+                tDTO.FileName = trq.FileName;
+                tDTO.IsRecording = true;
+                tDTO.RecordingDate = trq.RecordingDate;
+                await _tr.AddVideo(tDTO);
+                return Ok();
             }
         }
     }

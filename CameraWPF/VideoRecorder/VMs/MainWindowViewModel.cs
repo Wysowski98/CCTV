@@ -280,7 +280,7 @@ namespace CCTVSystem.Client.ViewModels
 
         private async void CommandExecute(object parameter)
         {
-            string newIp = new InputBox("New camera stream IP").ShowDialog();
+            string newIp = new InputBox("Panel kamery").ShowDialog();
             int i = Int32.Parse(parameter.ToString());
             i--;
           
@@ -288,7 +288,7 @@ namespace CCTVSystem.Client.ViewModels
             {
                 case "CANCEL":
                     {
-                        MessageBox.Show("Entering IP canceled");
+                        MessageBox.Show("Anulowano akcję na kamerze");
                         break;
                     }
                 case "CAM_OFF":
@@ -299,13 +299,35 @@ namespace CCTVSystem.Client.ViewModels
                 case "REC_ON":
                     {
                         Cameras[i].StartRecording();
-                        MessageBox.Show("Recording on camera" + (i+1) + " started!");
+                        MessageBox.Show("Rozpoczęto nagrywanie na kamerze " + (i+1) + "!");
+
+                        //Adding transmission
+                        var values = new CameraCommand
+                        {
+                            Url = Cameras[i].CameraUrl,
+                            ClientId = _loggedClient.Id
+                        };
+                        var values2 = new TransmissionCommand
+                        {
+                            RecordingDate = DateTime.Now,
+                            CamRequest = values,
+                            FileName = "vid" + i + ".avi"
+                        };
+
+                        var myContent = JsonConvert.SerializeObject(values2);
+                        var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                        var byteContent = new ByteArrayContent(buffer);
+                        byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                        var response = await client.PostAsync("https://localhost:44309/api/Trans/addTranss", byteContent);
+
+                        if (response.StatusCode != HttpStatusCode.OK)
+                            MessageBox.Show("Bład rejestrowania transmisji kamery!");
                         break;
                     }
                 case "REC_OFF":
                     {
                         Cameras[i].StopRecording();
-                        MessageBox.Show("Recording on camera" + (i+1) + " was stopped!");
+                        MessageBox.Show("Zatrzymano nagrywanie na kamerze " + (i+1) + "!");
                         break;
                     }
                 case "SHOW_SINGLE":
@@ -320,12 +342,13 @@ namespace CCTVSystem.Client.ViewModels
                     {
                         if (i < 0 || i > 24)
                         {
-                            MessageBox.Show("Something wrong with passing button parameter!");
+                            MessageBox.Show("Bład przekazywania parametru przycisku!");
                         }
                         else
                         {
                             Cameras[i].CameraUrl = newIp;
 
+                            //Adding camera
                             var values = new CameraCommand
                             {
                                 Url = newIp,
@@ -340,7 +363,7 @@ namespace CCTVSystem.Client.ViewModels
                             if (response.StatusCode != HttpStatusCode.OK)
                                 MessageBox.Show("Bład dodawania nowej kamery!");
 
-                            Cameras[i].StartCamera();
+                            Cameras[i].StartCamera();                           
                         }
                         break;
                     }

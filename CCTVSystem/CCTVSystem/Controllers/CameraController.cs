@@ -17,14 +17,13 @@ namespace CCTVSystem.Controllers
     public class CameraController : ControllerBase
     {
         private readonly ICameraService _service;
-        private readonly ITransmissionService _transmissionService;
 
         public CameraController(ICameraService service)
         {
             _service = service;
         }
 
-        [HttpGet("AddCam")]
+        [HttpPost("AddCam")]
         public async Task<IActionResult> AddCamera([FromBody] CameraRequest req)
         {
             if (!ModelState.IsValid)

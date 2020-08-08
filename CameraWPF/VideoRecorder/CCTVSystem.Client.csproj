@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="VMs\TransmissionCommand.cs" />
     <Compile Include="VMs\ChangePasswordCommand.cs" />
     <Compile Include="DeleteRecord.xaml.cs">
       <DependentUpon>DeleteRecord.xaml</DependentUpon>

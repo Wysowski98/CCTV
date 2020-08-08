@@ -32,7 +32,7 @@ namespace Services.Service
         public Camera FindClientCamera(CameraRequest cr)
         {
             //Client cl = FindClient(cr.clientId);
-            return _context.Cameras.FirstOrDefault(cam => cam.IpAddress == cr.Url);
+            return _context.Cameras.AsNoTracking().FirstOrDefault(cam => cam.IpAddress == cr.Url);
         }
 
         public async Task<List<CameraDTO>> GetClientCameras(Client client)
