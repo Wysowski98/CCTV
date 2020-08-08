@@ -5,18 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CCTVSystem.Client"
         mc:Ignorable="d"
-        Title="Register" Height="540" Width="560">
-    <Grid>
-        <Border>
-            <Border.Background>
-                <LinearGradientBrush>
-                    <GradientStop Color="Azure"/>
-                    <GradientStop Color="Azure"/>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
+        Title="Register"
+        Height="540"
+        Width="500"
+        >
+    <Viewbox
+        Stretch="Fill">
+        <StackPanel>
+            <Grid>
+                <Border>
+                    <Border.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Azure"/>
+                            <GradientStop Color="Azure"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
 
-        <TextBlock HorizontalAlignment="Center"
+                <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0, 10, 0, 0"
                    Opacity="0.75"
@@ -25,12 +31,12 @@
                    FontWeight="Heavy"
                    FontSize="42"/>
 
-        <TextBox HorizontalAlignment="Center"
+                <TextBox HorizontalAlignment="Center"
                  Name="FirstName"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="300"
-                 Margin="0, 80, 0, 0"
+                 Margin="50, 80, 50, 0"
                  Opacity="0.75"
                  Text="First name"
                  FontFamily="Helvetica"
@@ -38,12 +44,12 @@
                  HorizontalContentAlignment="Center"
                  GotFocus="TextBox_GotFocus"
                  LostFocus="TextBoxFirstName_LostFocus"/>
-        <TextBox HorizontalAlignment="Center"
+                <TextBox HorizontalAlignment="Center"
                  Name="LastName"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="300"
-                 Margin="0, 140, 0, 0"
+                 Margin="50, 140, 50, 0"
                  Opacity="0.75"
                  Text="Last name"
                  FontFamily="Helvetica"
@@ -51,12 +57,12 @@
                  HorizontalContentAlignment="Center"
                  GotFocus="TextBox_GotFocus"
                  LostFocus="TextBoxLastName_LostFocus"/>
-        <TextBox HorizontalAlignment="Center"
+                <TextBox HorizontalAlignment="Center"
                  Name="Username"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="300"
-                 Margin="0, 200, 0, 0"
+                 Margin="50, 200, 50, 0"
                  Opacity="0.75"
                  Text="Username"
                  FontFamily="Helvetica"
@@ -64,12 +70,12 @@
                  HorizontalContentAlignment="Center"
                  GotFocus="TextBox_GotFocus"
                  LostFocus="TextBoxUsername_LostFocus"/>
-        <TextBox HorizontalAlignment="Center"
+                <TextBox HorizontalAlignment="Center"
                  Name="Email"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="300"
-                 Margin="0, 260, 0, 0"
+                 Margin="50, 260, 50, 0"
                  Opacity="0.75"
                  Text="Email address"
                  FontFamily="Helvetica"
@@ -77,12 +83,12 @@
                  HorizontalContentAlignment="Center"
                  GotFocus="TextBox_GotFocus"
                  LostFocus="TextBoxEmail_LostFocus"/>
-        <TextBox HorizontalAlignment="Center"
+                <TextBox HorizontalAlignment="Center"
                  Name="Password"
                  VerticalAlignment="Top"
                  Height="40"
                  Width="300"
-                 Margin="0, 320, 0, 0"
+                 Margin="50, 320, 50, 0"
                  Opacity="0.75"
                  Text="Password"
                  FontFamily="Helvetica"
@@ -90,7 +96,7 @@
                  HorizontalContentAlignment="Center"
                  GotFocus="TextBox_GotFocus"
                  LostFocus="TextBoxPassword_LostFocus"/>
-        <TextBox HorizontalAlignment="Center"
+                <TextBox HorizontalAlignment="Center"
                  Name="ConfirmPassword"
                  VerticalAlignment="Top"
                  Height="40"
@@ -103,20 +109,23 @@
                  HorizontalContentAlignment="Center"
                  GotFocus="TextBox_GotFocus"
                  LostFocus="TextBoxConfirmPassword_LostFocus"/>
-        <Button HorizontalAlignment="Center"
+                <Button HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Height="40"
                 Width="140"
-                Margin="0, 440, 0, 0"
+                Margin="0, 440, 0, 10"
                 Background="CornflowerBlue"
                 Opacity="0.9"
                 Click="ButtonSubmit_Click">
-            <TextBlock
+                    <TextBlock
                 Text="Submit"
                 FontFamily="Helvetica"
                 FontSize="30"
                 FontWeight="Bold">
-            </TextBlock>
-        </Button>
-    </Grid>
+                    </TextBlock>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Viewbox>
+    
 </Window>

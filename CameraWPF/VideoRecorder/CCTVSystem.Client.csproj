@@ -135,9 +135,6 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Parame.xaml.cs">
-      <DependentUpon>Parame.xaml</DependentUpon>
-    </Compile>
     <Compile Include="password.xaml.cs">
       <DependentUpon>password.xaml</DependentUpon>
     </Compile>
@@ -182,10 +179,6 @@
     <Compile Include="BitmapHelpers.cs" />
     <Compile Include="InputBox.cs" />
     <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Parame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
