@@ -50,5 +50,14 @@ namespace Services.Service
             var transListDto = Mapper.Map<List<Transmission>, List<TransmissionDTO>>(transList);
             return transListDto;
         }
+
+        public async void DeleteCheckedTransmissionsAsync(int idTransmission)
+        {
+            var element = _context.Transmissions.Find(idTransmission);
+            _context.Transmissions.Remove(element);
+            _context.SaveChanges();
+
+        }
+
     }
 }

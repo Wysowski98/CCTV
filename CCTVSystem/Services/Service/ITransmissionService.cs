@@ -14,5 +14,7 @@ namespace Services.Service
         void DeleteSavedVideos();
 
         Task<List<TransmissionDTO>> GetTrans();
+
+        void DeleteCheckedTransmissionsAsync(int idTransmission);
     }
 }

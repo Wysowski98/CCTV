@@ -73,5 +73,13 @@ namespace CCTVSystem.Controllers
                 return Ok();
             }
         }
+
+        [HttpDelete("{idTransmission}")]
+        public async Task<IActionResult> DeleteTransmission(int idTransmission)
+        {
+            _tr.DeleteCheckedTransmissionsAsync(idTransmission);
+            return Ok();
+
+        }
     }
 }
