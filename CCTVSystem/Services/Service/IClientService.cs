@@ -12,6 +12,6 @@ namespace Services.Service
         Task<List<ClientDTO>> GetClients();
 
         int GetClientTransmission(string id);
-
+        void DeleteCheckedUserAsync(int idUser);
     }
 }

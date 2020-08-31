@@ -125,5 +125,14 @@ namespace CCTVSystem.Controllers
             };
             return Ok(userProfile);
         }
+
+
+        [HttpDelete("{idUser}")]
+        public async Task<IActionResult> DeleteUser(int idUser)
+        {
+            _service.DeleteCheckedUserAsync(idUser);
+            return Ok();
+
+        }
     }
 }

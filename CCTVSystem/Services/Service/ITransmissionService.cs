@@ -16,5 +16,6 @@ namespace Services.Service
         Task<List<TransmissionDTO>> GetTrans();
 
         void DeleteCheckedTransmissionsAsync(int idTransmission);
+        void DeleteCheckedTransmissionsByAdminAsync(int idTransmission);
     }
 }

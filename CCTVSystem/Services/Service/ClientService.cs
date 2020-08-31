@@ -40,5 +40,13 @@ namespace Services.Service
             var clientListDto = Mapper.Map<List<Client>, List<ClientDTO>>(clientList);
             return clientListDto;
         }
+
+        public async void DeleteCheckedUserAsync(int idUser)
+        {
+            var element = _context.Clients.Find(idUser);
+            _context.Clients.Remove(element);
+            _context.SaveChanges();
+
+        }
     }
 }

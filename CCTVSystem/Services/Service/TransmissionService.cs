@@ -59,5 +59,14 @@ namespace Services.Service
 
         }
 
+
+        public async void DeleteCheckedTransmissionsByAdminAsync(int idTransmission)
+        {
+            var element = _context.Transmissions.Find(idTransmission);
+            element.ReadyToDelete = true;
+            _context.SaveChanges();
+
+        }
+
     }
 }
