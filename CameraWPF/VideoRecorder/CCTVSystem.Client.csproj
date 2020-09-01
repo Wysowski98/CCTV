@@ -113,6 +113,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainWindow - user.xaml.cs">
+      <DependentUpon>MainWindow - user.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VMs\TransmissionCommand.cs" />
     <Compile Include="VMs\ChangePasswordCommand.cs" />
     <Compile Include="DeleteRecord.xaml.cs">
@@ -174,6 +177,10 @@
     </Compile>
     <Compile Include="BitmapHelpers.cs" />
     <Compile Include="InputBox.cs" />
+    <Page Include="MainWindow - user.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

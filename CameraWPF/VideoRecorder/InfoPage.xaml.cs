@@ -56,8 +56,14 @@ namespace CCTVSystem.Client
             //przypisanie wartości do boxów
             username1.Text = _profile.Username;
             email1.Text = _profile.Email;
+       
             role1.Items.Add(_profile.Roles);
             id1.Items.Add(_profile.TransmissionId);
+        }
+
+        private void role1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
