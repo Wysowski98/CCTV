@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,10 +28,11 @@ namespace CCTVSystem
         private List<GetUserProfileCommand> _users;
         public class Users
         {
+            public string Id { get; set; }
             public bool IsSelected { get; set; }
-            public string UserName { get; set; }
+            public string Username { get; set; }
             public string Email { get; set; }
-            public string Role { get; set; }
+            public string Roles { get; set; }
         }
 
         public DeleteUsers()
@@ -42,7 +44,7 @@ namespace CCTVSystem
         private async void getUsers()
         {
 
-            var response = await client.GetAsync("https://localhost:44309/api/Client/getUsers");
+            var response = await client.GetAsync("https://localhost:44309/api/Client");
             //jezeli serwer wyslal pozytywna odpowiedz
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -51,19 +53,57 @@ namespace CCTVSystem
 
             }
 
-            for (int i = 0; i < _users.Count; i++)
+            if (_users != null)
             {
+                foreach (GetUserProfileCommand gu in _users)
+                {
+                    Users u = new Users();               
+                    u.Id = gu.Id;
+                    u.Username = gu.Username;
+                    u.Email = gu.Email;
 
-                UsersList.Items.Add(_users[i]);
+                    Console.WriteLine(u.Id);
+                    Console.WriteLine(gu.Id);
+
+                    UsersList.Items.Add(u);                    
+
+                }
             }
-
-
 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+            List<Users> objToDelete = new List<Users>();
+            foreach (Users u in UsersList.Items)
+            {
+                if (u.IsSelected == true)
+                {
+                    deleteUser(u.Id);
+                    objToDelete.Add(u);
+                }
+            }
+
+            if (!objToDelete.Any())
+            {
+                MessageBox.Show("There is nothing to delete");
+            }
+            else
+            {
+                foreach (Users u in objToDelete)
+                {
+                    UsersList.Items.Remove(u);
+                }
+            }
+
+        }
+
+        private async void deleteUser(string idUser)
+        {
+          
+                var response = await client.DeleteAsync("https://localhost:44309/api/Client/" + idUser);
+             
         }
 
     }

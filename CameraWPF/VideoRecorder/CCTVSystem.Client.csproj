@@ -148,7 +148,7 @@
     <Compile Include="VMs\CameraViewModel.cs" />
     <Compile Include="VMs\ClientViewModel.cs" />
     <Compile Include="VMs\CameraCommand.cs" />
-    <Compile Include="VMs\GetUsersss.cs" />
+    <Compile Include="VMs\GetUsersCommand.cs" />
     <Compile Include="VMs\HistoryCommand.cs" />
     <Compile Include="VMs\LoginCommand.cs" />
     <Compile Include="VMs\RegisterCommand.cs" />

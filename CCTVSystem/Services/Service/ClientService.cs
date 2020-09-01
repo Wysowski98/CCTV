@@ -16,6 +16,7 @@ namespace Services.Service
         private readonly CctvDbContext _context;
         private readonly UserManager<Client> _userManager;
         private readonly SignInManager<Client> _signInManager;
+        private readonly ICameraService _cam_service;
 
         public ClientService(CctvDbContext context, UserManager<Client> userManager, SignInManager<Client> signInManager)
         {
@@ -41,12 +42,13 @@ namespace Services.Service
             return clientListDto;
         }
 
-        public async void DeleteCheckedUserAsync(int idUser)
+        public async void DeleteCheckedUserAsync(string idUser)
         {
             var element = _context.Clients.Find(idUser);
-            _context.Clients.Remove(element);
-            _context.SaveChanges();
-
+     
+                _context.Clients.Remove(element);
+                _context.SaveChanges();
+         
         }
     }
 }

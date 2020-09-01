@@ -128,7 +128,7 @@ namespace CCTVSystem.Controllers
 
 
         [HttpDelete("{idUser}")]
-        public async Task<IActionResult> DeleteUser(int idUser)
+        public async Task<IActionResult> DeleteUser(string idUser)
         {
             _service.DeleteCheckedUserAsync(idUser);
             return Ok();
