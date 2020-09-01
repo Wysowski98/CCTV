@@ -14,6 +14,7 @@ namespace CCTVSystem.Client.ViewModels
         public int Hours { get; set; }
         public int Minutes { get; set; }
         public int CameraId { get; set; }
+        public bool ReadyToDelete { get; set; }
 
     }
 }

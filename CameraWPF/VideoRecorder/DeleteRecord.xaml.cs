@@ -35,6 +35,8 @@ namespace CCTVSystem.Client
             public int Minutes { get; set; }
             public string Camera { get; set; }
 
+            public bool ReadyToDelete { get; set; }
+
         }
 
         public DeleteRecords()
@@ -66,7 +68,12 @@ namespace CCTVSystem.Client
                     r.Minutes = gtc.Minutes;
                     r.RecordingDate = gtc.RecordingDate.ToString();
                     r.Camera = gtc.CameraId.ToString();
-                    RecordHistory.Items.Add(r);
+                    r.ReadyToDelete = gtc.ReadyToDelete;
+                    if(r.ReadyToDelete == false)
+                    {
+                        RecordHistory.Items.Add(r);
+                    }
+             
                 }
             }
         }
@@ -99,7 +106,7 @@ namespace CCTVSystem.Client
 
         private async void deleteTrans(int idTransmission)
         {
-            var response = await client.DeleteAsync("https://localhost:44309/api/Trans/" + idTransmission);
+            var response = await client.DeleteAsync("https://localhost:44309/admin/" + idTransmission);
         }
 
     }

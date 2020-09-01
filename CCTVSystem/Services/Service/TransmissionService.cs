@@ -34,12 +34,12 @@ namespace Services.Service
 
         public void DeleteSavedVideos()
         {
-            var range =_context.Transmissions.ToList();
+            var range = _context.Transmissions.ToList();
 
-            foreach(var item in range)
-            {
-                item.ReadyToDelete = true;
-            }
+            //foreach (var item in range)
+            //{
+            //    item.ReadyToDelete = true;
+            //}
 
             _context.SaveChanges();
         }
@@ -64,6 +64,7 @@ namespace Services.Service
         {
             var element = _context.Transmissions.Find(idTransmission);
             element.ReadyToDelete = true;
+            _context.Transmissions.Update(element);
             _context.SaveChanges();
 
         }
