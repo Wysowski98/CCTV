@@ -16,7 +16,7 @@
                        FontWeight="Bold" FontFamily="Segoe UI" Foreground="#FF5073A6">
             </TextBlock>
             <Button Content="Log out" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="15" FontWeight="Bold" FontFamily="Segoe UI"
-                    Foreground="#FF5073A6" HorizontalAlignment="Right" Height="37" Margin="0,0,10,0"/>
+                    Foreground="#FF5073A6" HorizontalAlignment="Right" Height="37" Margin="0,0,10,0" Click="Button_Click_1"/>
         </Grid>
 
         <Grid Margin="130,75,0,0">
