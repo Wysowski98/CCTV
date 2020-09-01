@@ -141,9 +141,6 @@
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Transmission.xaml.cs">
-      <DependentUpon>Transmission.xaml</DependentUpon>
-    </Compile>
     <Compile Include="VMs\CctvViewModel.cs" />
     <Compile Include="VMs\CameraViewModel.cs" />
     <Compile Include="VMs\ClientViewModel.cs" />
@@ -186,10 +183,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="RegisterWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Transmission.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

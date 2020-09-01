@@ -55,9 +55,6 @@ namespace CCTVSystem.Client
                     break;
 
                 case 1:
-                    //usc = new Transmission();
-                    //Cotu.Children.Add(usc);
-                    //break;
                     usc = new DeleteUsers();
                     Cotu.Children.Add(usc);
                     break;
