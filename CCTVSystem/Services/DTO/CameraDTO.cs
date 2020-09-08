@@ -9,6 +9,6 @@ namespace Services.DTO
     {
         public int Id { get; set; }
         public string IpAddress { get; set; }
-        public Client Client { get; set; }
+        public int ClientId { get; set; }
     }
 }

@@ -80,7 +80,7 @@ namespace CCTVSystem
             {
                 if (u.IsSelected == true)
                 {
-                    deleteUser(u.Id);
+                    deleteUser(u.Username);
                     objToDelete.Add(u);
                 }
             }
@@ -99,10 +99,10 @@ namespace CCTVSystem
 
         }
 
-        private async void deleteUser(string idUser)
+        private async void deleteUser(string username)
         {
           
-                var response = await client.DeleteAsync("https://localhost:44309/api/Client/" + idUser);
+                var response = await client.DeleteAsync("https://localhost:44309/api/Client/" + username);
              
         }
 

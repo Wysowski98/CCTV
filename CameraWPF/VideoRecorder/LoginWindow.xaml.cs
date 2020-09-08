@@ -56,6 +56,7 @@ namespace CCTVSystem.Client
                 MainWindowUs mwu = new MainWindowUs(loggedClient);
                 mwu.Show();
                 this.Close();
+
             }
             else
                 MessageBox.Show("Bład logowania!");
