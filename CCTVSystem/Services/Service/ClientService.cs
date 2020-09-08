@@ -60,7 +60,7 @@ namespace Services.Service
         {
             var user = _context.Clients.First(u => u.UserName == username);
 
-            List<int> camsIds = new List<int>();
+           // List<int> camsIds = new List<int>();
 
             var camList = _context.Cameras.Where(cam => cam.Client.Id == user.Id).ToList();
  
