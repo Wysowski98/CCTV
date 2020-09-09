@@ -32,8 +32,9 @@ namespace CCTVSystem.Controllers
             var classes = await _tr.GetTrans();
             if (classes.Any())
             {
+                /*
                 List<TransmissionResponse> trList = new List<TransmissionResponse>();
-                foreach(TransmissionDTO tDTO in classes)
+                foreach(Transmission tDTO in classes)
                 {
                     TransmissionResponse tr = new TransmissionResponse();
                     tr.Id = tDTO.Id;
@@ -43,10 +44,11 @@ namespace CCTVSystem.Controllers
                     tr.ReadyToDelete = tDTO.ReadyToDelete;
                     tr.RecordingDate = tDTO.RecordingDate;
                     tr.FileName = tDTO.FileName;
-                    tr.CameraId = tDTO.Camera.Id;
+                    tr.CameraId = tDTO.CameraId;
                     trList.Add(tr);
                 }
-                return Ok(trList);
+                */
+                return Ok(classes);
             }
             else
             {
@@ -54,22 +56,20 @@ namespace CCTVSystem.Controllers
             }
         }
 
-        //Not working yet ( ! Cannot insert explicit value for identity column in table 'Cameras' when IDENTITY_INSERT is set to OFF. ! )
         [HttpPost("addTranss")]
         public async Task<IActionResult> addTranss([FromBody] TransmissionRequest trq)
         {
-            TransmissionDTO tDTO = new TransmissionDTO();
+            Transmission t = new Transmission();
             var cam = _cs.FindClientCamera(trq.CamRequest);
-            
-            tDTO.Camera = Mapper.Map<Camera, CameraDTO>(cam);
-            if (tDTO.Camera == null)
+            if (cam == null)
                 return BadRequest("Błędne dane dotyczące kamery!");
             else
             {
-                tDTO.FileName = trq.FileName;
-                tDTO.IsRecording = true;
-                tDTO.RecordingDate = trq.RecordingDate;
-                await _tr.AddVideo(tDTO);
+                t.CameraId = cam.Id;       
+                t.FileName = trq.FileName;
+                t.IsRecording = true;
+                t.RecordingDate = trq.RecordingDate;
+                await _tr.AddVideo(t);
                 return Ok();
             }
         }

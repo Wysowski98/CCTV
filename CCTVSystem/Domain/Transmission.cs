@@ -20,6 +20,6 @@ namespace Domain
 
         public int Minutes { get; set; }
 
-        public Camera Camera { get; set; }
+        public int CameraId { get; set; }
     }
 }

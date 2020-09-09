@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.DTO;
 using Services.Service;
+using Domain;
 
 namespace CCTVSystem.Controllers
 {
@@ -21,7 +22,7 @@ namespace CCTVSystem.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task<IActionResult> AddClients([FromBody] TransmissionDTO video)
+        public async Task<IActionResult> AddClients([FromBody] Transmission video)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
@@ -33,7 +34,7 @@ namespace CCTVSystem.Controllers
 
 
         [HttpPost("RecReady")]
-        public async Task<IActionResult> CheckIfReadyCam([FromBody] TransmissionDTO newVideo)
+        public async Task<IActionResult> CheckIfReadyCam([FromBody] Transmission newVideo)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");

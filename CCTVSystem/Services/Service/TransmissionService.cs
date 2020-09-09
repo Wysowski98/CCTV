@@ -20,15 +20,15 @@ namespace Services.Service
             _context = context;
         }
 
-        public async Task AddVideo(TransmissionDTO newVideo)
+        public async Task AddVideo(Transmission newVideo)
         { 
-            await _context.Transmissions.AddAsync(Mapper.Map<TransmissionDTO, Transmission>(newVideo));
+            await _context.Transmissions.AddAsync(newVideo);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> CheckIfReady(TransmissionDTO Video)
+        public async Task<bool> CheckIfReady(Transmission Video)
         {
-            var cam = _context.Transmissions.FirstOrDefault(x=>x.Id == Mapper.Map<TransmissionDTO, Transmission>(Video).Id);
+            var cam = _context.Transmissions.FirstOrDefault(x => x.Id == Video.Id);
             return cam.ReadyToDelete;
         }
 
@@ -44,11 +44,11 @@ namespace Services.Service
             _context.SaveChanges();
         }
 
-        public async Task<List<TransmissionDTO>> GetTrans()
+        public async Task<List<Transmission>> GetTrans()
         {
-            var transList = await _context.Transmissions.Include(x => x.Camera).ToListAsync();
-            var transListDto = Mapper.Map<List<Transmission>, List<TransmissionDTO>>(transList);
-            return transListDto;
+            var transList = await _context.Transmissions.ToListAsync();
+
+            return transList;
         }
 
         public async void DeleteCheckedTransmissionsAsync(int idTransmission)

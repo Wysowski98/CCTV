@@ -13,7 +13,6 @@ namespace Infrastructure
             {
                 cfg.CreateMap<Client, ClientDTO>();
                 cfg.CreateMap<ClientDTO, Client>();
-                cfg.CreateMap<TransmissionDTO, Transmission>();
             });
         }
     }

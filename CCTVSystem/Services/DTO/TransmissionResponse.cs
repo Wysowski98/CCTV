@@ -13,6 +13,7 @@ namespace Services.DTO
             public string FileName { get; set; }
 
             public bool IsRecording { get; set; }
+
             public bool ReadyToDelete { get; set; }
 
             public int Hours { get; set; }

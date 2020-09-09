@@ -3,19 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
 namespace Services.Service
 {
     public interface ITransmissionService
     {
-        Task AddVideo(TransmissionDTO newVideo);
+        Task AddVideo(Transmission newVideo);
 
-        Task<bool> CheckIfReady(TransmissionDTO newVideo);
+        Task<bool> CheckIfReady(Transmission newVideo);
+
         void DeleteSavedVideos();
 
-        Task<List<TransmissionDTO>> GetTrans();
+        Task<List<Transmission>> GetTrans();
 
         void DeleteCheckedTransmissionsAsync(int idTransmission);
+
         void DeleteCheckedTransmissionsByAdminAsync(int idTransmission);
     }
 }

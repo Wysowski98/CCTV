@@ -38,7 +38,7 @@ namespace Services.Service
 
         public void DeleteUserTransmissions(int CamId)
         {
-            var transList = _context.Transmissions.Where(trans => trans.Camera.Id == CamId).ToList();
+            var transList = _context.Transmissions.Where(trans => trans.CameraId == CamId).ToList();
             foreach (var transmission in transList)
             {             
                     transmission.ReadyToDelete = true;

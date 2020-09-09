@@ -53,6 +53,7 @@ namespace CCTVSystem.Client.ViewModels
         private DateTime? firstFrameTime;
         private IVideoSource videoSource;
         private string cameraUrl;
+        private string filename;
 
         #endregion
 
@@ -78,6 +79,12 @@ namespace CCTVSystem.Client.ViewModels
             set { Set(ref cameraUrl, value); }
         }
 
+        public string Filename
+        {
+            get { return filename; }
+            set { Set(ref filename, value); }
+        }
+
         public void StartCamera()
         {
             VideoSource = new MJPEGStream(CameraUrl);
@@ -87,27 +94,25 @@ namespace CCTVSystem.Client.ViewModels
 
         private void video_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            if (recording)
-            {
                 using (var bitmap = (Bitmap)eventArgs.Frame.Clone())
                 {
-                    if (firstFrameTime != null)
+                    var bi = bitmap.ToBitmapImage();
+                    bi.Freeze();
+                    Dispatcher.CurrentDispatcher.Invoke(() => Image = bi);
+
+                    if (recording)
                     {
-                        writer.WriteVideoFrame(bitmap, DateTime.Now - firstFrameTime.Value);
+                        if (firstFrameTime != null)
+                        {
+                            writer.WriteVideoFrame(bitmap, DateTime.Now - firstFrameTime.Value);
+                        }
+                        else
+                        {
+                            writer.WriteVideoFrame(bitmap);
+                            firstFrameTime = DateTime.Now;
+                        }
                     }
-                    else
-                    {
-                        writer.WriteVideoFrame(bitmap);
-                        firstFrameTime = DateTime.Now;
-                    }
-                }
-            }
-            using (var bitmap = (Bitmap)eventArgs.Frame.Clone())
-            {
-                var bi = bitmap.ToBitmapImage();
-                bi.Freeze();
-                Dispatcher.CurrentDispatcher.Invoke(() => Image = bi);
-            }
+                }          
 
         }
 
@@ -135,8 +140,8 @@ namespace CCTVSystem.Client.ViewModels
         {
             if (Image != null)
             {
-                string filename = "vid";
-                filename += cameraId + ".avi";
+                filename = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
+                filename += ".avi";
                 firstFrameTime = null;
                 writer = new VideoFileWriter();
                 writer.Open(filename, (int)Math.Round(Image.Width, 0), (int)Math.Round(Image.Height, 0));
@@ -311,7 +316,7 @@ namespace CCTVSystem.Client.ViewModels
                         {
                             RecordingDate = DateTime.Now,
                             CamRequest = values,
-                            FileName = "vid" + i + ".avi"
+                            FileName = Cameras[i].Filename
                         };
 
                         var myContent = JsonConvert.SerializeObject(values2);
