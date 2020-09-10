@@ -20,6 +20,6 @@ namespace Domain
 
         public int Minutes { get; set; }
 
-        public int CameraId { get; set; }
+        public System.Nullable<int> CameraId { get; set; }
     }
 }
