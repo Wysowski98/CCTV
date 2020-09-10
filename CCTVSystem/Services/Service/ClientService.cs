@@ -42,6 +42,7 @@ namespace Services.Service
             foreach (var transmission in transList)
             {             
                     transmission.ReadyToDelete = true;
+                    transmission.CameraId = null;
                     _context.Transmissions.Update(transmission);
                     _context.SaveChanges();
                 
