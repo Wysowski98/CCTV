@@ -60,13 +60,13 @@ namespace Services.Service
         }
 
 
-        public async void DeleteCheckedTransmissionsByAdminAsync(int idTransmission)
+        public async Task<Transmission> DeleteCheckedTransmissionsByAdminAsync(int idTransmission)
         {
             var element = _context.Transmissions.Find(idTransmission);
             element.ReadyToDelete = true;
             _context.Transmissions.Update(element);
             _context.SaveChanges();
-
+            return element;
         }
 
     }

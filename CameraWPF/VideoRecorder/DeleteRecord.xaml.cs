@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -107,6 +109,48 @@ namespace CCTVSystem.Client
         private async void deleteTrans(int idTransmission)
         {
             var response = await client.DeleteAsync("https://localhost:44309/admin/" + idTransmission);
+            DeleteRecording(await response.Content.ReadAsStringAsync());
+        }
+
+        private async void DeleteRecording(string filename)
+        {
+            string[] filePaths = Directory.GetFiles(@"./", "*.avi",
+                                         SearchOption.AllDirectories);
+            
+            try
+            {
+                if(filePaths != null)
+                {
+                    File.Delete(filePaths.First(x => x.Equals("./" + filename)));
+                    Console.WriteLine("File deleted.");
+                }
+                    
+            }
+            catch (Exception ioExp)
+            {
+                Console.WriteLine(ioExp.Message);
+            }
+        }
+
+        public void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = (BackgroundWorker)sender;
+            while (!worker.CancellationPending)
+            {
+                TimeSpan timeToNextDelete = TimeSpan.FromMinutes(3);
+                if (RecordHistory != null)
+                {
+                    foreach (Recorded item in RecordHistory.Items)
+                    {
+                        if ((DateTime.Now - DateTime.Parse(item.RecordingDate)) > timeToNextDelete && !item.ReadyToDelete)
+                        {
+                            deleteTrans(item.Id);
+                            RecordHistory.Items.Remove(item);
+                        }
+                    }
+                }
+            }
+            
         }
 
     }

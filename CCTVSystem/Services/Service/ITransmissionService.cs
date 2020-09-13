@@ -19,6 +19,6 @@ namespace Services.Service
 
         void DeleteCheckedTransmissionsAsync(int idTransmission);
 
-        void DeleteCheckedTransmissionsByAdminAsync(int idTransmission);
+        Task<Transmission> DeleteCheckedTransmissionsByAdminAsync(int idTransmission);
     }
 }

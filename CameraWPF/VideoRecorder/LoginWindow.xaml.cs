@@ -14,12 +14,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace CCTVSystem.Client
 {
     public partial class LoginWindow : Window
     {
         static HttpClient client = new HttpClient();
+        BackgroundWorker worker = new BackgroundWorker();
 
         public LoginWindow()
         {
@@ -45,17 +47,21 @@ namespace CCTVSystem.Client
                 string responseBody = await response.Content.ReadAsStringAsync();
                 var loggedClient = JsonConvert.DeserializeObject<ClientViewModel>(responseBody);
                 MessageBox.Show("Logowanie pomyślne. Witaj " + loggedClient.FirstName +"!");
-            
-              //admin
-                
-              //  MainWindow mw = new MainWindow(loggedClient);
-              //  mw.Show();
-             //   this.Close();
 
-              //user
-                MainWindowUs mwu = new MainWindowUs(loggedClient);
-                mwu.Show();
+                //admin
+                DeleteRecords r = new DeleteRecords();
+                worker.DoWork += new DoWorkEventHandler(r.Worker_DoWork);
+                worker.RunWorkerAsync();
+
+                MainWindow mw = new MainWindow(loggedClient);
+                mw.Show();
                 this.Close();
+                
+                
+                ////user
+                //  MainWindowUs mwu = new MainWindowUs(loggedClient);
+                //  mwu.Show();
+                //  this.Close();
 
             }
             else
