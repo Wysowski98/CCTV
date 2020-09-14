@@ -50,8 +50,10 @@ namespace CCTVSystem.Client
 
                 //admin
                 DeleteRecords r = new DeleteRecords();
+                worker.WorkerSupportsCancellation = true;
                 worker.DoWork += new DoWorkEventHandler(r.Worker_DoWork);
                 worker.RunWorkerAsync();
+                //worker.CancelAsync();
 
                 MainWindow mw = new MainWindow(loggedClient);
                 mw.Show();

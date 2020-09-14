@@ -26,6 +26,7 @@ namespace CCTVSystem.Client
     {
         static HttpClient client = new HttpClient();
         private List<GetTransCommand> _trans;
+        private List<Recorded> _dunno;
 
         public class Recorded
         {
@@ -44,6 +45,7 @@ namespace CCTVSystem.Client
         public DeleteRecords()
         {
             InitializeComponent();
+            _dunno = new List<Recorded>();
             getTrans();
         }
 
@@ -60,6 +62,7 @@ namespace CCTVSystem.Client
 
             if (_trans != null)
             {
+                //RecordHistory.Items.Clear();
                 foreach (GetTransCommand gtc in _trans)
                 {
                     Recorded r = new Recorded();
@@ -74,6 +77,7 @@ namespace CCTVSystem.Client
                     if(r.ReadyToDelete == false)
                     {
                         RecordHistory.Items.Add(r);
+                        _dunno.Add(r);
                     }
              
                 }
@@ -135,19 +139,23 @@ namespace CCTVSystem.Client
         public void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = (BackgroundWorker)sender;
-            while (!worker.CancellationPending)
+            if (worker.CancellationPending == true)
             {
-                TimeSpan timeToNextDelete = TimeSpan.FromMinutes(3);
-                if (RecordHistory != null)
+                e.Cancel = true;
+            }
+            while (!worker.CancellationPending)
+            {               
+                TimeSpan timeToNextDelete = TimeSpan.FromMinutes(1);
+                if (RecordHistory.Items.Count > 0)
                 {
                     foreach (Recorded item in RecordHistory.Items)
                     {
                         if ((DateTime.Now - DateTime.Parse(item.RecordingDate)) > timeToNextDelete && !item.ReadyToDelete)
-                        {
-                            deleteTrans(item.Id);
-                            RecordHistory.Items.Remove(item);
+                        {                            
+                            deleteTrans(item.Id);                            
                         }
                     }
+                    break;
                 }
             }
             

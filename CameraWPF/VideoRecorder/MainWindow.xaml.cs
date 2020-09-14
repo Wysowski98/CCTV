@@ -1,6 +1,7 @@
 ﻿using CCTVSystem.Client.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace CCTVSystem.Client
 {
     /// <summary>
@@ -21,6 +23,7 @@ namespace CCTVSystem.Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        private BackgroundWorker worker = new BackgroundWorker();
         private MainWindowViewModel mv;
         private ClientViewModel _loggedUser;
 
@@ -36,6 +39,7 @@ namespace CCTVSystem.Client
             mv = new MainWindowViewModel(singleImage, panelImages, loggedClient);
             this.DataContext = mv;
             _loggedUser = loggedClient;
+            worker.WorkerSupportsCancellation = true;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -65,7 +69,14 @@ namespace CCTVSystem.Client
                     break;
 
                 case 3:
+                    if (worker.IsBusy == true)
+                        worker.CancelAsync();
                     usc = new DeleteRecords();
+                    if (worker.IsBusy != true)
+                    {
+                        worker.DoWork += new DoWorkEventHandler(((DeleteRecords)usc).Worker_DoWork);
+                        worker.RunWorkerAsync();
+                    }
                     Cotu.Children.Add(usc);
                     break;
 
