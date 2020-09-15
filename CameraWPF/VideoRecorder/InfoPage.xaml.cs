@@ -33,7 +33,7 @@ namespace CCTVSystem.Client
             _loggedUser = loggedUser;
             getUserProfile();
         }
-       
+
 
         private async void getUserProfile()
         {
@@ -56,8 +56,7 @@ namespace CCTVSystem.Client
             //przypisanie wartości do boxów
             username1.Text = _profile.Username;
             email1.Text = _profile.Email;
-       
-            role1.Items.Add(_profile.Roles);
+            role1.Text = _profile.Role;
             id1.Items.Add(_profile.TransmissionId);
         }
 

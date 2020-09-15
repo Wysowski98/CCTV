@@ -24,6 +24,12 @@ namespace CCTVSystem.Controllers
             _service = service;
             _userManager = userManager;
             _signInManager = signInManager;
+            var role1 = new IdentityRole();
+            role1.Name = "Admin";
+            role1.Id = "1";
+            var role2 = new IdentityRole();
+            role2.Name = "User";
+            role2.Id = "2";
         }
 
         [HttpGet]
@@ -77,6 +83,7 @@ namespace CCTVSystem.Controllers
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "User");
                 return Ok();
             }
 
@@ -115,12 +122,13 @@ namespace CCTVSystem.Controllers
             var email = await _userManager.GetEmailAsync(user);
             var role = await _userManager.GetRolesAsync(user);
             var trId = _service.GetClientTransmission(request.id);
+            string role1 = role.FirstOrDefault();
 
             var userProfile = new UserProfile
             {
                 Username = username,
                 Email = email,
-                Role = role,
+                Role = role1,
                 TransmissionId = trId
             };
             return Ok(userProfile);

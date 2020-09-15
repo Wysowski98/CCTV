@@ -22,6 +22,7 @@ namespace CCTVSystem.Client
     {
         static HttpClient client = new HttpClient();
         BackgroundWorker worker = new BackgroundWorker();
+        private GetUserProfileCommand _profile;
 
         public LoginWindow()
         {
@@ -48,18 +49,56 @@ namespace CCTVSystem.Client
                 var loggedClient = JsonConvert.DeserializeObject<ClientViewModel>(responseBody);
                 MessageBox.Show("Logowanie pomyślne. Witaj " + loggedClient.FirstName +"!");
 
-                //admin
-                DeleteRecords r = new DeleteRecords();
-                worker.WorkerSupportsCancellation = true;
-                worker.DoWork += new DoWorkEventHandler(r.Worker_DoWork);
-                worker.RunWorkerAsync();
-                //worker.CancelAsync();
+                //pobranie danych uzytkownika
+                var values1 = new UserId
+                {
+                    id = loggedClient.Id,
+                };
+                //proces wysylania żądania do serwera
+                var myContent1 = JsonConvert.SerializeObject(values1);
+                var buffer1 = System.Text.Encoding.UTF8.GetBytes(myContent1);
+                var byteContent1 = new ByteArrayContent(buffer1);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var response1 = await client.PostAsync("https://localhost:44309/api/Client/GetUserProfile", byteContent1);
 
-                MainWindow mw = new MainWindow(loggedClient);
-                mw.Show();
-                this.Close();
-                
-                
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    string responseBody1 = await response.Content.ReadAsStringAsync();
+                    _profile = JsonConvert.DeserializeObject<GetUserProfileCommand>(responseBody1);
+                }
+
+                //Admin
+                if(_profile.Role == "Admin")
+                {
+                    DeleteRecords r = new DeleteRecords();
+                    worker.WorkerSupportsCancellation = true;
+                    worker.DoWork += new DoWorkEventHandler(r.Worker_DoWork);
+                    worker.RunWorkerAsync();
+                    //worker.CancelAsync();
+
+                    MainWindow mw = new MainWindow(loggedClient);
+                    mw.Show();
+                    this.Close();
+                }
+                else
+                {
+                    //User
+                    MainWindowUs mwu = new MainWindowUs(loggedClient);
+                    mwu.Show();
+                    this.Close();
+                }
+                ////admin
+                //DeleteRecords r = new DeleteRecords();
+                //worker.WorkerSupportsCancellation = true;
+                //worker.DoWork += new DoWorkEventHandler(r.Worker_DoWork);
+                //worker.RunWorkerAsync();
+                ////worker.CancelAsync();
+
+                //MainWindow mw = new MainWindow(loggedClient);
+                //mw.Show();
+                //this.Close();
+
+
                 ////user
                 //  MainWindowUs mwu = new MainWindowUs(loggedClient);
                 //  mwu.Show();
@@ -68,6 +107,8 @@ namespace CCTVSystem.Client
             }
             else
                 MessageBox.Show("Bład logowania!");
+
+
         }
 
         private void registerLabel_MouseDoubleClick(object sender, MouseButtonEventArgs e)

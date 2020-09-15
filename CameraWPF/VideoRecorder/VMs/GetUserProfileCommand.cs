@@ -11,7 +11,7 @@ namespace CCTVSystem.Client.ViewModels
         public string Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public IList<string> Roles { get; set; }
+        public string Role { get; set; }
         public int TransmissionId { get; set; }
     }
 
@@ -19,5 +19,6 @@ namespace CCTVSystem.Client.ViewModels
     {
         public string id { get; set; }
     }
-    
+
 }
+
