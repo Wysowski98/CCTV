@@ -99,7 +99,6 @@ namespace CCTVSystem.Client
 
         private void ShowAllButton_Click(object sender, RoutedEventArgs e)
         {
-
             Cotu.Children.Clear();
             panelImages.Visibility = System.Windows.Visibility.Visible;
             singleImage.Visibility = System.Windows.Visibility.Hidden;
@@ -107,6 +106,8 @@ namespace CCTVSystem.Client
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            mv.stopAllRecordings();
+            mv.stopAllCameras();
             LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();

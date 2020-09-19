@@ -7,13 +7,14 @@ namespace CCTVSystem.Client
 {
     internal class InputBox
     {
-        Window Box = new Window();//window for the inputbox
-        int FontSize = 18;//fontsize for the input
-        StackPanel sp1 = new StackPanel();// items container
-        string title = "InputBox";//title as heading
-        string boxcontent;//title
-        string defaulttext = "Enter stream IP address here...";//default textbox content       
+        Window Box = new Window();
+        int FontSize = 18;
+        StackPanel sp1 = new StackPanel();
+        string title = "InputBox";
+        string boxcontent;
+        string defaulttext = "Enter stream IP address here...";     
         string okbuttontext = "Turn on camera";
+        string removebuttontext = "Remove camera";
         string cancelbuttontext = "Cancel";
         string camerabuttontext = "Turn off the camera";
         string offrecordingfbuttontext = "Turn off the recording";
@@ -23,6 +24,7 @@ namespace CCTVSystem.Client
         bool clicked = false;
         TextBox input = new TextBox();
         Button ok = new Button();
+        Button remove = new Button();
         Button cancel = new Button();
         Button camera = new Button();
         Button offrec = new Button();
@@ -115,6 +117,13 @@ namespace CCTVSystem.Client
             ok.HorizontalAlignment = HorizontalAlignment.Center;
             sp1.Children.Add(ok);
 
+            remove.Width = 140;
+            remove.Height = 30;
+            remove.Click += remove_Click;
+            remove.Content = removebuttontext;
+            remove.HorizontalAlignment = HorizontalAlignment.Center;
+            sp1.Children.Add(remove);
+
             camera.Width = 140;
             camera.Height = 30;
             camera.Click += cameraoff_Click;
@@ -171,6 +180,13 @@ namespace CCTVSystem.Client
         {
             clicked = true;
             Box.Close();
+        }
+
+        void remove_Click(object sender, RoutedEventArgs e)
+        {
+            clicked = true;
+            Box.Close();
+            input.Text = "REMOVE_CAMERA";
         }
 
         void cancel_Click(object sender, RoutedEventArgs e)

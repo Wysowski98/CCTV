@@ -102,14 +102,21 @@ namespace CCTVSystem.Client.ViewModels
 
                     if (recording)
                     {
-                        if (firstFrameTime != null)
+                        try
                         {
-                            writer.WriteVideoFrame(bitmap, DateTime.Now - firstFrameTime.Value);
+                            if (firstFrameTime != null)
+                            {
+                                writer.WriteVideoFrame(bitmap, DateTime.Now - firstFrameTime.Value);
+                            }
+                            else
+                            {
+                                writer.WriteVideoFrame(bitmap);
+                                firstFrameTime = DateTime.Now;
+                            }
                         }
-                        else
+                        catch(Exception e)
                         {
-                            writer.WriteVideoFrame(bitmap);
-                            firstFrameTime = DateTime.Now;
+                            
                         }
                     }
                 }          
@@ -238,6 +245,9 @@ namespace CCTVSystem.Client.ViewModels
                         break;
                     Cameras[i].CameraUrl = cam.IpAddress;
                     Cameras[i].StartCamera();
+                    ToolTip tt = new ToolTip();
+                    tt.Content = Cameras[i].CameraUrl;
+                    ((Button)_panelImages.Children[i]).ToolTip = tt;
                     i++;
                 }
             }
@@ -245,7 +255,7 @@ namespace CCTVSystem.Client.ViewModels
                 MessageBox.Show("Bład uzyskiwania kamer użytkownika!");
         }
 
-        private void stopAllCameras()
+        public void stopAllCameras()
         {
             for (int i = 0; i < _viewType; i++)
             {
@@ -261,7 +271,7 @@ namespace CCTVSystem.Client.ViewModels
             }
         }
 
-        private void stopAllRecordings()
+        public void stopAllRecordings()
         {
             for (int i = 0; i < _viewType; i++)
             {
@@ -343,6 +353,48 @@ namespace CCTVSystem.Client.ViewModels
                         _panelImages.Visibility = System.Windows.Visibility.Hidden;
                         break;
                     }
+                case "REMOVE_CAMERA":
+                    {
+                        Cameras[i].StopRecording();
+                        Cameras[i].StopCamera();
+                        var values = new CameraCommand
+                        {
+                            Url = Cameras[i].CameraUrl,
+                            ClientId = _loggedClient.Id
+                        };
+                        var myContent = JsonConvert.SerializeObject(values);
+                        var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                        var byteContent = new ByteArrayContent(buffer);
+                        byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                        HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/RemoveCam", byteContent);
+
+                        if (response.StatusCode != HttpStatusCode.OK)
+                            MessageBox.Show("Bład usuwania kamery z bazy!");
+                        else
+                        {
+                            ((Button)_panelImages.Children[i]).ToolTip = null;
+                            Cameras[i].CameraUrl = "";
+                            MessageBox.Show("Pomyślnie usunięto kamerę z bazy");
+                        }
+
+                        break;
+                    }
+                case "Enter stream IP address here...":
+                    {
+                        if ((Cameras[i].CameraUrl).Length > 0)
+                            Cameras[i].StartCamera();
+                        else
+                            MessageBox.Show("Nie wprowadzono URL kamery!");
+                        break;
+                    }
+                case "":
+                    {
+                        if ((Cameras[i].CameraUrl).Length > 0)
+                            Cameras[i].StartCamera();
+                        else
+                            MessageBox.Show("Nie wprowadzono URL kamery!");
+                        break;
+                    }
                 default:
                     {
                         if (i < 0 || i > 24)
@@ -353,22 +405,34 @@ namespace CCTVSystem.Client.ViewModels
                         {
                             Cameras[i].CameraUrl = newIp;
 
-                            //Adding camera
-                            var values = new CameraCommand
+                            try
+                            { 
+                                Cameras[i].StartCamera();
+
+                                //Adding camera
+                                var values = new CameraCommand
+                                {
+                                    Url = newIp,
+                                    ClientId = _loggedClient.Id
+                                };
+                                var myContent = JsonConvert.SerializeObject(values);
+                                var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                                var byteContent = new ByteArrayContent(buffer);
+                                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                                HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/AddCam", byteContent);
+                                ToolTip tt = new ToolTip();
+                                tt.Content = Cameras[i].CameraUrl;
+                                ((Button)_panelImages.Children[i]).ToolTip = tt;
+
+
+                                if (response.StatusCode != HttpStatusCode.OK)
+                                    MessageBox.Show("Bład dodawania nowej kamery!");
+                            }
+                            catch(Exception e)
                             {
-                                Url = newIp,
-                                ClientId = _loggedClient.Id
-                            };
-                            var myContent = JsonConvert.SerializeObject(values);
-                            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-                            var byteContent = new ByteArrayContent(buffer);
-                            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                            HttpResponseMessage response = await client.PostAsync("https://localhost:44309/api/Camera/AddCam", byteContent);
-
-                            if (response.StatusCode != HttpStatusCode.OK)
-                                MessageBox.Show("Bład dodawania nowej kamery!");
-
-                            Cameras[i].StartCamera();                           
+                                MessageBox.Show("Bład wprowadzania URL kamery!");
+                            }
+                                                   
                         }
                         break;
                     }

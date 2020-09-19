@@ -41,5 +41,11 @@ namespace Services.Service
             var cameraListDto = Mapper.Map<List<Camera>, List<CameraDTO>>(cameraList);
             return cameraListDto;
         }
+
+        public async Task DeleteCamera(Camera camera)
+        {
+            _context.Cameras.Remove(camera);
+            await _context.SaveChangesAsync();
+        }
     }
 }

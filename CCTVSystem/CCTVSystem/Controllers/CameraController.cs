@@ -54,6 +54,17 @@ namespace CCTVSystem.Controllers
             }
         }
 
-        
+        [HttpPost("RemoveCam")]
+        public async Task<IActionResult> RemoveCamera([FromBody] CameraRequest req)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+
+            Camera cam = _service.FindClientCamera(req);
+            await _service.DeleteCamera(cam);
+
+            return Ok();
+        }
+
     }
 }

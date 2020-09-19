@@ -13,5 +13,6 @@ namespace Services.Service
         Task<List<CameraDTO>> GetClientCameras(Client client);
         Client FindClient(String id);
         Camera FindClientCamera(CameraRequest cr);
+        Task DeleteCamera(Camera camera);
     }
 }

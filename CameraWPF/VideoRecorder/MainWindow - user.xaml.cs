@@ -93,6 +93,8 @@ namespace CCTVSystem.Client
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            mv.stopAllRecordings();
+            mv.stopAllCameras();
             LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();
