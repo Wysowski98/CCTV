@@ -9,6 +9,8 @@ using Domain;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System.Collections;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Services.Service
 {
@@ -17,6 +19,7 @@ namespace Services.Service
         private readonly CctvDbContext _context;
         private readonly UserManager<Client> _userManager;
         private readonly SignInManager<Client> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleInManager;
         private readonly ICameraService _cam_service;
 
         public ClientService(CctvDbContext context, UserManager<Client> userManager, SignInManager<Client> signInManager)

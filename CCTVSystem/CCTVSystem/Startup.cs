@@ -27,12 +27,15 @@ namespace CCTVSystem
 {
     public class Startup
     {
+       
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
+
+    }
 
         public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -75,8 +78,22 @@ namespace CCTVSystem
             service.AddScoped<ICameraService, CameraService>();
         }
 
+        private async void  AddSeedAsync(RoleManager<IdentityRole> _roleManager)
+        {
+            string[] roleNames = { "Admin", "User"};
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = _roleManager.RoleExistsAsync(roleName).Result;
+                if (!roleExist)
+                {
+                    var roleResult = _roleManager.CreateAsync(new IdentityRole(roleName)).Result;
+                }
+            }
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobs)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobs, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -106,6 +123,8 @@ namespace CCTVSystem
             {
                 endpoints.MapControllers();
             });
+
+            AddSeedAsync(roleManager);
         }
     }
 }
