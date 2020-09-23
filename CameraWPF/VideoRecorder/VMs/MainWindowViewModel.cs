@@ -173,7 +173,7 @@ namespace CCTVSystem.Client.ViewModels
         private ClientViewModel _loggedClient;
         private static HttpClient client = new HttpClient();
 
-        private const int _maxCameras = 15;
+        private const int _maxCameras = 160;
 
         private List<CameraViewModel> _clientCameras = new List<CameraViewModel>();
         private List<Camera> _cameras = new List<Camera>();
@@ -225,6 +225,17 @@ namespace CCTVSystem.Client.ViewModels
         public ICommand StopCameraCommand { get; private set; }
 
         #endregion
+
+        public void resizeHappened(int width, int height)
+        {
+            int tWidth = width / 100;
+            int tHeight = height / 100;
+            _viewType = (tWidth) * (tHeight);
+            if (_viewType > 160)
+                _viewType = 160;
+
+            prepButtons(_viewType);
+        }
 
         public async Task getClientCameras()
         {

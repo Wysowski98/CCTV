@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CCTVSystem.Client"
         mc:Ignorable="d"
-        Title="Menu" Height="472" Width="702" ResizeMode="NoResize" >
+        Title="Menu" Height="470" Width="700" MinHeight="480" MinWidth="700" ResizeMode="CanResizeWithGrip" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged">
 
     <Grid Background="#FFE0E5EB">
 
@@ -19,7 +19,7 @@
                     Foreground="#FF5073A6" HorizontalAlignment="Right" Height="37" Margin="0,0,10,0" Click="Button_Click_1"/>
         </Grid>
 
-        <Grid Margin="130,75,0,0">
+        <Grid Margin="130,75,0,25">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -29,11 +29,13 @@
             <Image x:Name="singleImage" HorizontalAlignment="Center"></Image>
         </Grid>
 
-        <Grid Height="434"  Width="130" VerticalAlignment="Center"  HorizontalAlignment="Left"  Background="#FF194A96">
-            <Button x:Name="loadButton" Width="130" FontSize="13" Content="Load Cameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Margin="0,50,0,344" Click="LoadButton_Click"/>
-            <Button x:Name="showAllButton" Width="130" FontSize="13" Content="Show all cameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Margin="0,90,0,304" Click="ShowAllButton_Click"/>
-
-            <StackPanel Orientation="Vertical"  VerticalAlignment="Top"  Margin="0,198,0,0">
+        <Grid x:Name="SidePanel" Height="Auto"  Width="130" VerticalAlignment="Center"  HorizontalAlignment="Left"  Background="#FF194A96">
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Top" Margin="0,75,0,0">
+                <Button x:Name="loadButton" Uid="0" Width="130" FontSize="13" Content="Load Cameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="LoadButton_Click"/>
+                <Button x:Name="showAllButton" Uid="1" Width="130" FontSize="13" Content="Show all cameras" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="ShowAllButton_Click"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Vertical"  VerticalAlignment="Top"  Margin="0,200,0,0">
 
                 <Button Uid="0" Width="130" FontSize="13" Content="HOME" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
                 <Button Uid="1" Width="130" FontSize="13" Content="DELETE USERS" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
@@ -42,7 +44,7 @@
                 <Button Uid="4" Width="130" FontSize="13" Content="PASSWORD" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
                 <Button Uid="5" Width="130" FontSize="13" Content="ACCOUNT" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
             </StackPanel>
-            <Grid x:Name="GridCursor" Width="130" Height="40" Background="#FF1E86D9" VerticalAlignment="Center" HorizontalAlignment="Left" Opacity="0.5" />
+            <Grid x:Name="GridCursor" Width="130" Height="40" Background="#FF1E86D9" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.5" Margin="0,200,0,0"/>
         </Grid>
 
     </Grid>

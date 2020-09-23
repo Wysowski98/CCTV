@@ -46,7 +46,7 @@ namespace CCTVSystem.Client
         {
             int index = int.Parse(((Button)e.Source).Uid);
           
-            GridCursor.Margin = new Thickness(0, (80 * index) , 0, 0 );
+            GridCursor.Margin = new Thickness(0, 200 + (40 * index) , 0, 0 );
             UserControl usc = null;
             Cotu.Children.Clear();
             panelImages.Visibility = System.Windows.Visibility.Hidden;
@@ -111,6 +111,24 @@ namespace CCTVSystem.Client
             LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            SidePanel.Height = this.Height;
+            mv.resizeHappened((int)this.Width - 150, (int)this.Height - 150);
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
+                this.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
+                SidePanel.Height = this.Height;
+                mv.resizeHappened((int)System.Windows.SystemParameters.PrimaryScreenWidth - 150, (int)System.Windows.SystemParameters.PrimaryScreenHeight - 150);
+
+            }
         }
     }
 }
