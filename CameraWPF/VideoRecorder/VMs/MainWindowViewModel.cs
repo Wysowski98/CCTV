@@ -85,6 +85,12 @@ namespace CCTVSystem.Client.ViewModels
             set { Set(ref filename, value); }
         }
 
+        public bool IfRecording
+        {
+            get { return recording; }
+            set { Set(ref recording, value); }
+        }
+
         public void StartCamera()
         {
             VideoSource = new MJPEGStream(CameraUrl);
@@ -325,7 +331,6 @@ namespace CCTVSystem.Client.ViewModels
                 case "REC_ON":
                     {
                         Cameras[i].StartRecording();
-                        MessageBox.Show("Rozpoczęto nagrywanie na kamerze " + (i+1) + "!");
 
                         //Adding transmission
                         var values = new CameraCommand
@@ -348,12 +353,19 @@ namespace CCTVSystem.Client.ViewModels
 
                         if (response.StatusCode != HttpStatusCode.OK)
                             MessageBox.Show("Bład rejestrowania transmisji kamery!");
+                        else
+                            MessageBox.Show("Rozpoczęto nagrywanie na kamerze " + (i + 1) + "!");
                         break;
                     }
                 case "REC_OFF":
                     {
-                        Cameras[i].StopRecording();
-                        MessageBox.Show("Zatrzymano nagrywanie na kamerze " + (i+1) + "!");
+                        if (Cameras[i].IfRecording)
+                        {
+                            Cameras[i].StopRecording();
+                            MessageBox.Show("Zatrzymano nagrywanie na kamerze " + (i + 1) + "!");
+                        }
+                        else
+                            MessageBox.Show("Nagrywanie na kamerze " + (i + 1) + " nie było aktywne!");
                         break;
                     }
                 case "SHOW_SINGLE":

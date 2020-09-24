@@ -24,7 +24,6 @@ namespace CCTVSystem.Client
     {
         static HttpClient client = new HttpClient();
         private ClientViewModel _loggedUser;
-        private List<CameraViewModel> _clientCameras;
         private GetUserProfileCommand _profile;
 
         public InfoPage(ClientViewModel loggedUser)
@@ -57,7 +56,6 @@ namespace CCTVSystem.Client
             username1.Text = _profile.Username;
             email1.Text = _profile.Email;
             role1.Text = _profile.Role;
-            id1.Items.Add(_profile.TransmissionId);
         }
 
         private void role1_TextChanged(object sender, TextChangedEventArgs e)

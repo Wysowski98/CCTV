@@ -51,25 +51,6 @@
                 FontSize="17" FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="0,0,0,0">
             </TextBlock>
         </Border>
-        <Border Margin="5" Grid.Column="1" Grid.Row="5" Background="#FF194A96" VerticalAlignment="Stretch" CornerRadius="2">
-            <TextBlock   Grid.Column="0" Text="TRANSMISSION ID"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="17" FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="0,0,0,0">
-            </TextBlock>
-
-
-
-        </Border>
-
-
-        <Border Margin="5" Grid.Column="2" Grid.Row="5" Background="LightGray" VerticalAlignment="Stretch" CornerRadius="2">
-            <ListView x:Name="id1"  Grid.Column="0"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                FontSize="17" FontFamily="Segoe UI" Foreground="#FF5073A6" Margin="0,0,0,0">
-            </ListView>
-        </Border>
 
 
         <Border Margin="5" Grid.Column="2" Grid.Row="4" Background="LightGray" VerticalAlignment="Stretch" CornerRadius="2">
